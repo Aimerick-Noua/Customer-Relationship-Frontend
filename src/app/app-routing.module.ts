@@ -18,6 +18,10 @@ import { UserListComponent } from './dashboard/user-list/user-list.component';
 import { ViewEmployeeComponent } from './dashboard/user-list/view-employee/view-employee.component';
 import { BlockHomeGuard } from './_services/block-home.guard';
 import { ChatComponent } from './dashboard/chat/chat.component';
+import { CommandComponent } from './dashboard/command/command.component';
+import { ClientComponent } from './dashboard/client/client.component';
+import { ViewClientComponent } from './dashboard/client/view-client/view-client.component';
+import { ClientFormComponent } from './dashboard/client/client-form/client-form.component';
 
 const routes: Routes = [
   {
@@ -33,10 +37,12 @@ const routes: Routes = [
       { path: 'admin', component: AdminManagementComponent },
       { path:'userList',component:UserListComponent},
       { path:'adminList',component:AdminManagementComponent},
-      { path:'garbagept', component:GarbagePointComponent},
+      { path:'command', component:CommandComponent},
+      { path:'client', component:ClientComponent},
       { path:'garbageManagement', component:GarbageManagementComponent},
-      { path:'gpt/:id', component:GarbageManagementComponent},
+      { path:'client/:id', component:ClientFormComponent},
       { path: 'viewemp/:id', component: ViewEmployeeComponent },
+      { path: 'viewclient/:id', component: ViewClientComponent },      
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]

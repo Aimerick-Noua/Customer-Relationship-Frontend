@@ -3,14 +3,13 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
-
-
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-view-client',
+  templateUrl: './view-client.component.html',
+  styleUrls: ['./view-client.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ViewClientComponent {
+
   form: any = {
     firstname: null,
     lastname: null,

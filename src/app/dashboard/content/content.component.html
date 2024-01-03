@@ -46,8 +46,8 @@
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Agents</span>
-              <span class="info-box-number">{{countAgents}}</span>
+              <span class="info-box-text">Total Employees</span>
+              <span class="info-box-number">{{countEmployee}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -56,12 +56,12 @@
         <!-- /.col -->
         <div class="col-sm-4">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-trash"></i></span>
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Garbage Points</span>
-              <span class="info-box-number" *ngIf="!gbl">{{gbl || '0'}}</span>
-              <span class="info-box-number" *ngIf="gbl">{{gbl}}</span>
+              <span class="info-box-text">Total Clients</span>
+              <span class="info-box-number">{{countClient}}</span>
+
               
             </div>
             <!-- /.info-box-content -->

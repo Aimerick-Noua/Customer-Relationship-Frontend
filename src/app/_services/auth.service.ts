@@ -12,6 +12,17 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
+  updateUser(userId:any, firstname: any, lastname: any, phone: any, address: any) {
+    return this.http.put(
+      `http://localhost:8082/api/auth/users/`+userId,
+      {
+        firstname,
+        lastname,
+        phone,
+        address,
+      },
+      httpOptions
+    );  }
   forgotPassword(email: any) {
 return this.http.post(AUTH_API + 'forgot',{email})  }
   constructor(private http: HttpClient) {}
@@ -27,7 +38,7 @@ return this.http.post(AUTH_API + 'forgot',{email})  }
     );
   }
   
-  register(firstname: string, lastname:string,phone:string,address:string, email: string, password: string): Observable<any> {
+  register(firstname: string, lastname:string,phone:string,address:string, email:string, password:string): Observable<any> {
     return this.http.post(
       AUTH_API + 'signup',
       {
@@ -36,7 +47,7 @@ return this.http.post(AUTH_API + 'forgot',{email})  }
         phone,
         address,
         email,
-        password,
+        password
       },
       httpOptions
     );

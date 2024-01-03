@@ -16,13 +16,21 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
+  deleteUser(id: number) {
+return this.http.delete(`${API_URL}users/`+id,httpOptions)
+  }
+  getAllCommands() {
+    return this.http.get(`${API_URL}users/clients`,httpOptions)
+  }
+  // getAllCommands(user_id:number) {
+  //   return this.http.get(`${API_URL}/clients/`+user_id)
+  // }
  
   updateEmployee(id: any, users: any) {
     return this.http.put(`${API_URL}users/update/`+id, users);
   }
   getEmployeeById(id: number) {
     return this.http.get(`${API_URL}users/` + id,httpOptions);
-
   }
   getAllEmployees() {
     return this.http.get(`${API_URL}users`);

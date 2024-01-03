@@ -12,8 +12,8 @@
         <img src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
           class="img-circle elevation-2" alt="User Image" style="opacity: .8; width: 20%;" width="180px" height="180px">
 
-        <a href="/dashboard/profile" class="nav-link" routerLink="profile" style="font-size: 20px;">{{
-          username|uppercase }}</a>
+        <a href="/dashboard/profile" class="nav-link" routerLink="profile" style="font-size: 20px;font-weight: 700;">
+        {{username |uppercase }}</a>
       </div>
     </div>
 
@@ -30,7 +30,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/dashboard/commands" class="nav-link">
+          <a  class="nav-link" *ngIf="isLoggedIn" routerLink="/dashboard/client" routerLinkActive="active">
+            <i class="nav-icon fas fa-users"></i>
+                        <p class="text-light">
+              Clients
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/dashboard/command" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-shopping-cart"></i>
             <p class="text-light">Commands</p>
           </a>
@@ -100,14 +108,7 @@
         </li>
         
 
-        <li class="nav-item">
-          <a routerLink="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user" routerLinkActive="active">
-            <i class="nav-icon fas fa-user"></i>
-                        <p class="text-light">
-              User
-            </p>
-          </a>
-        </li>
+    
         
 
       </ul>

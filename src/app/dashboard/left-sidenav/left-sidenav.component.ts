@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { EventBusService } from 'src/app/_shared/event-bus.service';
 import { ProfileComponent } from '../profile/profile.component';
+import { UserService } from 'src/app/_services/user.service';
 
 
 @Component({
@@ -16,11 +17,15 @@ export class LeftSidenavComponent {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false; 
-  username?: string;
+  showEmployeeBoard = false;
+  username!:string;
+  userData:any=[];
+
   showUserBoard: boolean=false;
+  userId: any;
   
   
-  constructor(  private storageService: StorageService){}
+  constructor(  private storageService: StorageService, private authService:UserService){}
   // ngOnInit():void{
   //   if(this.isLoggedIn){
   //     this.showAdminBoard = this.roles.includes('ADMIN');
@@ -45,12 +50,17 @@ export class LeftSidenavComponent {
       this.roles = user.roles;
   
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
       this.showUserBoard = this.roles.includes('ROLE_USER');
   
-      this.username = user.username;
+      this.userId = user.id;
     }
   
-    
+    this.authService.getEmployeeById(this.userId).subscribe(
+      (data:any)=>{
+        this.userData =data;
+        this.username=this.userData.firstname;
+    })
   }
   
 }

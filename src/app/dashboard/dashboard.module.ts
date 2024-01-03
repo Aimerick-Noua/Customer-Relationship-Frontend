@@ -36,6 +36,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ChatComponent } from './chat/chat.component';
+import { CommandComponent } from './command/command.component';
+import { ClientComponent } from './client/client.component';
+import { ClientFormComponent } from './client/client-form/client-form.component';
+import { ViewClientComponent } from './client/view-client/view-client.component';
 
 
 @NgModule({
@@ -60,7 +64,11 @@ import { ChatComponent } from './chat/chat.component';
     ViewEmployeeComponent,
     GarbagePointComponent,
     GarbageManagementComponent,
-    ChatComponent
+    ChatComponent,
+    CommandComponent,
+    ClientComponent,
+    ClientFormComponent,
+    ViewClientComponent
   ],
   imports: [
     CommonModule,

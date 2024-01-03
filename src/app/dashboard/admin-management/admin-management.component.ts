@@ -22,7 +22,7 @@ export class AdminManagementComponent {
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'phone', 'address', 'actions'];
+  displayedColumns: string[] = [ 'firstname', 'lastname', 'email', 'phone', 'address', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,20 +34,13 @@ export class AdminManagementComponent {
 
   ngOnInit(): void {
     const user = this.storageService.getUser();
-    this.username = user.username;
-
       this.roles = user.roles;
-
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       if(this.showAdminBoard){
         this.getAllUsersForAdmin();
         console.log(this.showAdminBoard);
         
-      }else{
-        this.getEmployeeByUsername();
       }
-      this.user_id = user.id;
-      console.log(this.roles);
 
 
 
@@ -57,24 +50,9 @@ export class AdminManagementComponent {
   constructor(private router: ActivatedRoute, private userService: UserService, private storageService: StorageService) { }
 
 
-  getEmployeeByUsername() {
-    this.userService.getAdminBoard(this.username).subscribe(
-      (data: any) => {
-        this.userData = data;
-        this.user_id = data.departmentId;
-        console.log(this.user_id);
-        
-        this.getAllUsers();
-      }
-    ),
-      (err: Error) => {
-        this.errormessage = err.message;
-        console.log("error");
-      }
-  }
 
   getAllUsers() {
-    this.userService.usersByEmailDepartment(this.user_id).subscribe(
+    this.userService.getAllUsers().subscribe(
       (data: any) => {
         this.allUsers = data;
         this.dataSource = new MatTableDataSource(data);
@@ -91,10 +69,7 @@ export class AdminManagementComponent {
   getAllUsersForAdmin() {
     this.userService.getAllEmployees().subscribe(
       (data: any) => {
-        // Filter the data to include only users with ROLE_ADMIN
-        this.allUsers = data.filter((user: { roles: { name: string; }[]; }) => user.roles[0].name === 'ROLE_ADMIN');
-        
-        // Now, set up your MatTableDataSource, paginator, and sort
+        this.allUsers = data.filter((user: { roles: { name: string; }[]; }) => user.roles[0].name === 'ROLE_ADMIN');        
         this.dataSource = new MatTableDataSource(this.allUsers);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
