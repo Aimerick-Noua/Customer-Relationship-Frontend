@@ -14,7 +14,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockHomeGuard } from './_services/block-home.guard';
-import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,7 @@ import { NgChartsModule } from 'ng2-charts';
     HttpClientModule,
     DashboardModule,
     BrowserAnimationsModule,
-    NgChartsModule
+    
   ],
   providers: [httpInterceptorProviders,BlockHomeGuard],
   bootstrap: [AppComponent]

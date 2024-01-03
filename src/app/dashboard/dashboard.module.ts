@@ -40,6 +40,8 @@ import { CommandComponent } from './command/command.component';
 import { ClientComponent } from './client/client.component';
 import { ClientFormComponent } from './client/client-form/client-form.component';
 import { ViewClientComponent } from './client/view-client/view-client.component';
+import { UserbyidBarchartComponent } from './chart/userbyid-barchart/userbyid-barchart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -68,7 +70,8 @@ import { ViewClientComponent } from './client/view-client/view-client.component'
     CommandComponent,
     ClientComponent,
     ClientFormComponent,
-    ViewClientComponent
+    ViewClientComponent,
+    UserbyidBarchartComponent
   ],
   imports: [
     CommonModule,
@@ -89,7 +92,8 @@ import { ViewClientComponent } from './client/view-client/view-client.component'
     MatRadioModule,
     MatPaginatorModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgChartsModule
   ]
 })
 export class DashboardModule { }

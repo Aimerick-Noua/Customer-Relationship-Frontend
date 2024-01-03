@@ -16,6 +16,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
+
   deleteUser(id: number) {
 return this.http.delete(`${API_URL}users/`+id,httpOptions)
   }
