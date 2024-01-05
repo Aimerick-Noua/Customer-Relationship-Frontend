@@ -22,6 +22,7 @@ import { CommandComponent } from './dashboard/command/command.component';
 import { ClientComponent } from './dashboard/client/client.component';
 import { ViewClientComponent } from './dashboard/client/view-client/view-client.component';
 import { ClientFormComponent } from './dashboard/client/client-form/client-form.component';
+import { EmployeeComponent } from './dashboard/employee/employee.component';
 
 const routes: Routes = [
   {
@@ -39,7 +40,7 @@ const routes: Routes = [
       { path:'adminList',component:AdminManagementComponent},
       { path:'command', component:CommandComponent},
       { path:'client', component:ClientComponent},
-      { path:'garbageManagement', component:GarbageManagementComponent},
+      // { path:'employeeList', component:EmployeeComponent},
       { path:'client/:id', component:ClientFormComponent},
       { path: 'viewemp/:id', component: ViewEmployeeComponent },
       { path: 'viewclient/:id', component: ViewClientComponent },      

@@ -14,10 +14,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EmployeeManagementComponent implements OnInit{
   price: number = 0;
-  role = ['ROLE_ADMIN','ROLE_USER'];
+  role = ['ROLE_ADMIN','ROLE_USER','ROLE_EMPLOYEE'];
   actionBtn: string = "Save";
   users: UserClass = {
-    username: '',
     firstname: '',
     lastname: '',
     email: '',

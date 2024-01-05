@@ -19,16 +19,21 @@ export class MessageService {
     this.stompClient = Stomp.over(ws);
     const that = this;
     // tslint:disable-next-line:only-arrow-functions
-    this.stompClient.connect({}, function(frame: any) {
-      that.stompClient.subscribe('/message', (message: { body: any; }) => {
+    this.stompClient.connect({}, function (frame: any) {
+      that.stompClient.subscribe('/message', (message: { body: any }) => {
         if (message.body) {
-          that.msg.push(message.body);
+          const messageData = JSON.parse(message.body);
+          const senderName = messageData.senderName;
+          const messageContent = messageData.message;
+  
+          that.msg.push(`${senderName}: ${messageContent}`);
         }
       });
     });
   }
 
-  sendMessage(message: string) {
-    this.stompClient.send('/app/send/message' , {}, message);
+  sendMessage(messagePayload: any) {
+    this.stompClient.send('/app/send/message', {}, JSON.stringify(messagePayload));
   }
+  
 }

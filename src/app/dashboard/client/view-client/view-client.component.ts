@@ -10,6 +10,7 @@ import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
 import * as FileSaver from 'file-saver';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-view-client',
   templateUrl: './view-client.component.html',
@@ -55,26 +56,19 @@ export class ViewClientComponent {
   @ViewChild(MatSort) sort!: MatSort;
   id: any;
   snapshot: any;
-  constructor(private userService: UserService, private storageService: StorageService, private authService: AuthService
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private authService: AuthService
 
   ) { }
 
 
 
   ngOnInit(): void {
-    this.isLoggedIn = this.storageService.isLoggedIn();
-    if (this.isLoggedIn) {
-      const user = this.storageService.getUser();
-      this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-      this.username = user.username;
-      this.userId = user.id;
-    }
+
     this.getEmployeeById()
   }
 
   getEmployeeById() {
+    this.userId = this.activatedRoute.snapshot.params['id'];
     this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
         this.userData = this.form = data;
@@ -101,15 +95,42 @@ export class ViewClientComponent {
       
   }
 
-  GetCommandProductList(prodId:number){
-    alert(prodId)
-    Swal.fire({
-      title: 'List of products',
-      icon: 'success',
-      text:'hi',
-      timer: 3000, // Time in milliseconds (2 seconds in this example)
-      timerProgressBar: true, // Show timer progress bar
-    });
+  GetCommandProductList(commandId: number) {
+    // Find the command by ID
+    const command = this.commandsData;
+  
+    if (command) {
+      const selectedCommand = command?.find((cmd: any) => cmd.id === commandId);
+      if (selectedCommand) {
+        const products = selectedCommand.products;
+  
+        // Prepare HTML content for SweetAlert2
+        const productsHtml = products.map(
+          (product:any) => `<p>${product.name} - Quantity: ${product.quantity} - Price: ${product.price}</p>`
+        ).join('');
+  
+        Swal.fire({
+          title: 'List of products',
+          icon: 'success',
+          html: productsHtml,
+          timerProgressBar: true,
+        });
+      } else {
+        // Handle the case where the command is not found
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          text: 'Command not found 1',
+        });
+      }
+    } else {
+      // Handle the case where the command is not found
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Command not found 2',
+      });
+    }
   }
 
 

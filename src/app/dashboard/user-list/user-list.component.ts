@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit{
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['username', 'firstname', 'lastname', 'email', 'phone', 'address', 'actions'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'email', 'phone', 'address', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
+import { SharedDataService } from 'src/app/_services/shared-data.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
@@ -33,11 +34,10 @@ export class ProfileComponent implements OnInit {
   showModeratorBoard: any;
  userData:any = [];
  userId!:number;
-  constructor(private userService: UserService, private storageService: StorageService, private authService:AuthService
+  constructor(private userService: UserService, private storageService: StorageService, private authService:AuthService, private sharedDataService:SharedDataService
 
   ) { }
   profileImage: string = 'assets/img/user4-128x128.jpg'; // Default image
-
   
 
   ngOnInit(): void {
@@ -57,8 +57,8 @@ export class ProfileComponent implements OnInit {
   this.userService.getAdminBoard(this.userId).subscribe(
     (data:any)=>{
       this.userData=this.form = data;
-      
-      console.log(this.userData);
+      this.sharedDataService.setFirstName(this.userData.firstname);
+
       
     }
   ),
