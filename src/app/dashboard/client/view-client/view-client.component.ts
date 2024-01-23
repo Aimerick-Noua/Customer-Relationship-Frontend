@@ -63,7 +63,6 @@ export class ViewClientComponent {
 
 
   ngOnInit(): void {
-
     this.getEmployeeById()
   }
 

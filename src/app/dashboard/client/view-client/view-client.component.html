@@ -62,13 +62,13 @@
                             <strong><i class="fas fa-phone mr-1"></i> Contact </strong>
                             <a class="float-right"> {{userData.phone}}</a>
                             <hr>
-
-
-                            <!-- /.card-header -->
-
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
                             <a class="float-right">{{userData.address}}</a>
                             <hr>
+                            <strong><i class="fas fa-calendar mr-1"></i> Joined on </strong>
+                            <a class="float-right"> {{userData.joinedDate | date:'dd-MM-yyyy'}}</a>
+                            <hr>
+
                         </div>
                         <!-- /.card-body -->
                         <!-- /.card -->

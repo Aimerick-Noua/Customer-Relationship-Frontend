@@ -1,22 +1,23 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
-import * as XLSX from 'xlsx'; 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import * as FileSaver from 'file-saver';
 import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
-import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+import html2canvas from 'html2canvas';
+import * as jspdf from 'jspdf';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  selector: 'app-view-command',
+  templateUrl: './view-command.component.html',
+  styleUrls: ['./view-command.component.css']
 })
-export class ClientComponent {
+export class ViewCommandComponent {
+
   userData: any = [];
   allUsers: any = [];
   user_id!: number;
@@ -26,58 +27,118 @@ export class ClientComponent {
   showPagination = true;
   generatingPdf = false;
 
+
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['firstname','lastname','phone', 'email', 'address','actions'];
+  displayedColumns: string[] = ['ID', 'totalAmount', 'dateCommand', 'product', 'status', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   id: any;
   snapshot: any;
+  userId: any;
+  form: any;
+  commandsData: any;
+  datas: any;
+  productId!: number;
+  products:any=[];
+  constructor(private userService: UserService,
+    private authService: StorageService,
+    private activatedRoute: ActivatedRoute
+
+  ) { }
+
+
 
   ngOnInit(): void {
-    this.getCommandsByUserId();
+    this.getEmployeeById()
+
   }
-
-  constructor(private router: ActivatedRoute, private userService: UserService, private storageService: StorageService) { }
-
-
-  // getUserById() {
-  //   const user = this.storageService.getUser();
-
-  //   this.userService.getAdminBoard(user.id).subscribe(
-  //     (data: any) => {
-  //       this.userData = data;
-  //       console.log(this.userData);
-  //       this.getCommandsByUserId();
-  //     }
-  //   ),
-  //     (err: Error) => {
-  //       this.errormessage = err.message;
-  //       console.log("error");
-  //     }
-  // }
-
-  getCommandsByUserId() {
-    this.userService.getAllCommands().subscribe(
+  getEmployeeById() {
+    this.userId = this.authService.getUser().id;
+    this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
-        this.allUsers = data;
+        this.userData = this.form = data;
+        this.commandsData = data.commands;
+        this.getCommandsByid()
 
-        // if(this.allUsers.commands){
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.allUsers);
-        }
-      // }
+      }
     ),
       (err: Error) => {
         this.errormessage = err.message;
         console.log("error");
+
       }
   }
+  getCommandsByid() {
+    this.productId = this.activatedRoute.snapshot.params['id'];
+
+    this.datas = this.commandsData
+
+    if (this.productId) {
+      const command = this.commandsData;
+
+      if (command) {
+        const selectedCommand = command?.find((cmd: any) => cmd.id === this.productId);
+        if (selectedCommand) {
+           this.products = selectedCommand.products;
+          //  console.log(this.productId);
+           
+           console.log(this.products);
+           
+        }
+      }
+    }
+
+  }
+
+  GetCommandProductList(commandId: number) {
+    // Find the command by ID
+    const command = this.commandsData;
+
+    if (command) {
+      const selectedCommand = command?.find((cmd: any) => cmd.id === commandId);
+      if (selectedCommand) {
+        const products = selectedCommand.products;
+
+        // Prepare HTML content for SweetAlert2
+        const productsHtml = products.map(
+          (product: any) =>
+            `<p>
+           - <b>Name:</b> ${product.name}<br>
+           - <b>Description:</b> ${product.description}<br>
+           - <b>Quantity:</b> ${product.quantity} <br>
+           - <b>Price:</b> ${product.price}
+           </p>`
+        ).join('');
+
+        Swal.fire({
+          title: 'List of products',
+          icon: 'success',
+          html: productsHtml,
+          timerProgressBar: true,
+        });
+      } else {
+        // Handle the case where the command is not found
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          text: 'Command not found',
+        });
+      }
+    } else {
+      // Handle the case where the command is not found
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Command not found ',
+      });
+    }
+  }
+
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -87,50 +148,6 @@ export class ClientComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  deleteUser(id: number) {
-    // Show SweetAlert confirmation
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this client!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // User clicked "Yes, delete it!" - proceed with deletion
-        this.userService.deleteUser(id).subscribe({
-          next: (res:any) => {
-            // Handle success
-            Swal.fire({
-              title: 'Client deleted Successfully',
-              icon: 'success',
-              timer: 3000,
-              timerProgressBar: true,
-              showConfirmButton: false,
-            });
-            // Optionally, you may want to refresh your data or perform other actions
-            // this.data = this.getAllUsers();
-          },
-          error: (e: Error) => {
-            // Handle deletion error
-            Swal.fire({
-              icon: 'error',
-              text: 'Failed to delete client',
-              timer: 2000,
-              timerProgressBar: true,
-              showConfirmButton: false,
-            });
-          }
-        });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // User clicked "No, cancel!" - do nothing or show a message
-        Swal.fire('Cancelled', 'Client deletion was cancelled', 'info');
-      }
-    });
-  }
-  
 
   generateExcel(): void {
     this.userService.usersByEmailDepartment(this.user_id).subscribe((data: any) => {
@@ -142,8 +159,10 @@ export class ClientComponent {
 
       const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(filteredData);
       console.log(this.userData);
+
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
       const arrayBuffer = XLSX.write(wb, {
         bookType: 'xlsx',
         type: 'array',
@@ -204,7 +223,7 @@ export class ClientComponent {
 
     // Write the table content to the new window
     printWindow.document.open();
-    printWindow.document.write('<html><head><title>Print</title></head><body><h2>List of Clients of NetView Solutions</h2>');
+    printWindow.document.write('<html><head><title>Print</title></head><body><h2>List of employees in NetView Solutions</h2>');
     printWindow.document.write(tableContent.outerHTML);
     printWindow.document.write('</body></html>');
     printWindow.document.close();

@@ -48,7 +48,6 @@ export class UserListComponent implements OnInit{
         this.getEmployeeByUsername();
       }
       this.user_id = user.id;
-      console.log(this.roles);
 
 
 
@@ -63,7 +62,6 @@ export class UserListComponent implements OnInit{
       (data: any) => {
         this.userData = data;
         this.user_id = data.email;
-        this.getAllUsers();
       }
     ),
       (err: Error) => {
@@ -72,30 +70,11 @@ export class UserListComponent implements OnInit{
       }
   }
 
-  getAllUsers() {
-    this.userService.getAllEmployees().subscribe(
-      (data: any) => {
-        // Filter the data to include only users with ROLE_ADMIN
-        this.allUsers = data.filter((user:any) => user.roles[0].name === 'ROLE_USER');
-        
-        // Now, set up your MatTableDataSource, paginator, and sort
-        this.dataSource = new MatTableDataSource(this.allUsers);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        
-        console.log(this.allUsers);
-      },
-      (err: Error) => {
-        this.errormessage = err.message;
-        console.log("error");
-      }
-    );
-  }
   getAllUsersForAdmin() {
     this.userService.getAllEmployees().subscribe(
       (data: any) => {
         // Filter the data to include only users with ROLE_ADMIN
-        this.allUsers = data.filter((user:any) => user.roles[0].name === 'ROLE_USER');
+        this.allUsers = data.filter((user:any) => user.roles[0].name === 'ROLE_EMPLOYEE');
         
         // Now, set up your MatTableDataSource, paginator, and sort
         this.dataSource = new MatTableDataSource(this.allUsers);

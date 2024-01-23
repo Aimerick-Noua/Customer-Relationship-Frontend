@@ -10,6 +10,7 @@ import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
 import * as FileSaver from 'file-saver';
+import { AuthService } from 'src/app/_services/auth.service';
 @Component({
   selector: 'app-command',
   templateUrl: './command.component.html',
@@ -25,58 +26,103 @@ export class CommandComponent {
   showPagination = true;
   generatingPdf = false;
 
+  
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['ID','firstname','lastname','phone', 'Montant', 'Date', 'Montant_Total','actions'];
+  displayedColumns: string[] = ['ID','totalAmount', 'dateCommand',  'product', 'status', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   id: any;
   snapshot: any;
+  userId: any;
+  form: any;
+  commandsData: any;
+  constructor(private userService: UserService,  private authService: StorageService
+
+  ) { }
+
+
 
   ngOnInit(): void {
-    this.getCommandsByUserId();
+    this.getEmployeeById()
   }
 
-  constructor(private router: ActivatedRoute, private userService: UserService, private storageService: StorageService) { }
-
-
-  // getUserById() {
-  //   const user = this.storageService.getUser();
-
-  //   this.userService.getAdminBoard(user.id).subscribe(
-  //     (data: any) => {
-  //       this.userData = data;
-  //       console.log(this.userData);
-  //       this.getCommandsByUserId();
-  //     }
-  //   ),
-  //     (err: Error) => {
-  //       this.errormessage = err.message;
-  //       console.log("error");
-  //     }
-  // }
-
-  getCommandsByUserId() {
-    this.userService.getAllCommands().subscribe(
+  getEmployeeById() {
+    this.userId = this.authService.getUser().id;
+    this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
-        this.allUsers = data;
+        this.userData = this.form = data;
+        this.commandsData = data.commands;
+        this.getCommandsByid()
+        console.log(this.userData);
 
-        // if(this.allUsers.commands){
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.allUsers);
-        }
-      // }
+      }
     ),
       (err: Error) => {
         this.errormessage = err.message;
         console.log("error");
+
       }
   }
+  getCommandsByid() {
+    
+        const datas=this.commandsData
+        // if(this.allUsers.commands){
+        this.dataSource = new MatTableDataSource(datas);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.allUsers);
+      
+  }
+
+  GetCommandProductList(commandId: number) {
+    // Find the command by ID
+    const command = this.commandsData;
+  
+    if (command) {
+      const selectedCommand = command?.find((cmd: any) => cmd.id === commandId);
+      if (selectedCommand) {
+        const products = selectedCommand.products;
+  
+        // Prepare HTML content for SweetAlert2
+        const productsHtml = products.map(
+          (product:any) => 
+          `<p>
+           - <b>Name:</b> ${product.name}<br>
+           - <b>Description:</b> ${product.description}<br>
+           - <b>Quantity:</b> ${product.quantity} <br>
+           - <b>Price:</b> ${product.price}
+           </p>`
+        ).join('');
+  
+        Swal.fire({
+          title: 'List of products',
+          icon: 'success',
+          html: productsHtml,
+          timerProgressBar: true,
+        });
+      } else {
+        // Handle the case where the command is not found
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          text: 'Command not found',
+        });
+      }
+    } else {
+      // Handle the case where the command is not found
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        text: 'Command not found ',
+      });
+    }
+  }
+
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,32 +132,6 @@ export class CommandComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  // deleteProperty(id: number) {
-  //   return this.userService.deleteDepartment(id).subscribe({
-  //     next: (res) => {
-  //       this.data = this.getAllUsers();
-  //       Swal.fire({
-  //         title: 'Department deleted Successfully',
-  //         icon: 'success',
-  //         text: 'The department has been deleted successfully!',
-  //         timer: 3000, // Time in milliseconds (2 seconds in this example)
-  //         timerProgressBar: true, // Show timer progress bar
-  //         showConfirmButton: false, // Hide the "OK" button
-  //       });
-  //     },
-  //     error: (e: Error) => {
-  //       Swal.fire({
-  //         title: 'Department data not deleted',
-  //         icon: 'error',
-  //         text: 'Failed to delete Department',
-  //         timer: 2000, // Time in milliseconds (2 seconds in this example)
-  //         timerProgressBar: true, // Show timer progress bar
-  //         showConfirmButton: false, // Hide the "OK" button
-  //       });
-  //     }
-  //   });
-  // }
 
   generateExcel(): void {
     this.userService.usersByEmailDepartment(this.user_id).subscribe((data: any) => {

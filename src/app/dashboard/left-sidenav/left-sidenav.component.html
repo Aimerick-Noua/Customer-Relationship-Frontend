@@ -29,7 +29,7 @@
             <p class="text-light">Dashboard</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="showAdminBoard || showEmployeeBoard">
           <a  class="nav-link" *ngIf="isLoggedIn" routerLink="/dashboard/client" routerLinkActive="active">
             <i class="nav-icon fas fa-users"></i>
                         <p class="text-light">
@@ -37,7 +37,7 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" >
           <a routerLink="/dashboard/command" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-shopping-cart"></i>
             <p class="text-light">Commands</p>
@@ -51,7 +51,7 @@
         </li>
         
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="showAdminBoard">
           <a routerLink="/dashboard/garbagept" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-chart-line"></i>
             <p class="text-light">Statistics</p>
@@ -89,23 +89,9 @@
           </a>
         </li>
 
-        <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="charts" class="nav-link" routerLinkActive="active">
-            <i class="nav-icon nav-icon fas fa-chart-pie"></i>
-            <p class="text-light">
-              Charts
-            </p>
-          </a>
-        </li>
 
-        <li class="nav-item" *ngIf="showUserBoard">
-          <a  class="nav-link" routerLink="admin" routerLinkActive="active">
-            <i class="nav-icon fas fa-chart-pie"></i>
-            <p class="text-light">
-              Moderator Board
-            </p>
-          </a>
-        </li>
+
+ 
         
 
     

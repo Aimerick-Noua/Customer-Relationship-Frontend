@@ -23,6 +23,8 @@ import { ClientComponent } from './dashboard/client/client.component';
 import { ViewClientComponent } from './dashboard/client/view-client/view-client.component';
 import { ClientFormComponent } from './dashboard/client/client-form/client-form.component';
 import { EmployeeComponent } from './dashboard/employee/employee.component';
+import { CommandManagementComponent } from './dashboard/command/command-management/command-management.component';
+import { ViewCommandComponent } from './dashboard/command/view-command/view-command.component';
 
 const routes: Routes = [
   {
@@ -40,7 +42,8 @@ const routes: Routes = [
       { path:'adminList',component:AdminManagementComponent},
       { path:'command', component:CommandComponent},
       { path:'client', component:ClientComponent},
-      // { path:'employeeList', component:EmployeeComponent},
+      { path:'newCommand', component:CommandManagementComponent},
+      { path:'viewCommand/:id', component:ViewCommandComponent},
       { path:'client/:id', component:ClientFormComponent},
       { path: 'viewemp/:id', component: ViewEmployeeComponent },
       { path: 'viewclient/:id', component: ViewClientComponent },      

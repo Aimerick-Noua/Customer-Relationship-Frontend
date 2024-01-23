@@ -4,6 +4,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Command } from '../dashboard/command/command';
 
 const API_URL = 'http://localhost:8082/api/auth/';
 const httpOptions = {
@@ -16,6 +17,12 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
+  saveCommandWithProducts(userId: number, command: Command) {
+    console.log("hello world" +command);
+    
+    return this.http.post(`${API_URL}users/clients/`+userId,command,httpOptions);
+  }
+
 
   deleteUser(id: number) {
 return this.http.delete(`${API_URL}users/`+id,httpOptions)
@@ -44,7 +51,7 @@ return this.http.delete(`${API_URL}users/`+id,httpOptions)
   }
 
   postAll(userData: any) {
-    return this.http.post(`${API_URL}signup`, userData);
+    return this.http.post(`${API_URL}signup`, userData,httpOptions);
   }
 
   constructor(private http: HttpClient) {}

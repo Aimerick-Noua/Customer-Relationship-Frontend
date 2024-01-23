@@ -18,10 +18,11 @@ export class LeftSidenavComponent {
   isLoggedIn = false;
   showAdminBoard = false; 
   showEmployeeBoard = false;
+  showUserBoard: boolean=false;
+
   username!:string;
   userData:any=[];
 
-  showUserBoard: boolean=false;
   userId: any;
   
   

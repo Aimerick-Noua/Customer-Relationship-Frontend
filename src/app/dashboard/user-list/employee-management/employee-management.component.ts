@@ -85,10 +85,11 @@ export class EmployeeManagementComponent implements OnInit{
         } else {
     
        
+    console.log(this.users);
     
           this.http.postAll(this.users).subscribe({
             next: (res: any) => {
-              console.log(res);
+              console.log(this.users);
               Swal.fire({
                 title: 'User Added Successfully',
                 icon: 'success',

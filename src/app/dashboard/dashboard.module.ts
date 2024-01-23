@@ -43,6 +43,8 @@ import { ViewClientComponent } from './client/view-client/view-client.component'
 import { UserbyidBarchartComponent } from './chart/userbyid-barchart/userbyid-barchart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { EmployeeComponent } from './employee/employee.component';
+import { CommandManagementComponent } from './command/command-management/command-management.component';
+import { ViewCommandComponent } from './command/view-command/view-command.component';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { EmployeeComponent } from './employee/employee.component';
     ClientFormComponent,
     ViewClientComponent,
     UserbyidBarchartComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    CommandManagementComponent,
+    ViewCommandComponent
   ],
   imports: [
     CommonModule,

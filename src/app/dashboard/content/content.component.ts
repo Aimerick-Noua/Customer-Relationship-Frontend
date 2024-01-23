@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
-import { GarbageServiceService } from '../services/garbage-service.service';
 
 @Component({
   selector: 'app-content',
@@ -15,10 +14,27 @@ export class ContentComponent implements OnInit {
   gpts: any;
   gbl: any;
   countClient: any;
+
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false; 
+  showEmployeeBoard = false;
+  showUserBoard: boolean=false;
   ngOnInit(): void {
+    this.isLoggedIn = this.storageService.isLoggedIn();
+  
+    if (this.isLoggedIn) {
+      const user = this.storageService.getUser();
+      this.roles = user.roles;
+  
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
+      this.showUserBoard = this.roles.includes('ROLE_USER');
+  
+    }
     this.getAllUsers();
   }
-  constructor(private userService: UserService, private gptService: GarbageServiceService) { }
+  constructor(private userService: UserService, private storageService:StorageService) { }
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(
@@ -52,16 +68,4 @@ export class ContentComponent implements OnInit {
     );
   }
 
-  getGarbagePointsCount() {
-    return this.gptService.getAllGarbagePts().subscribe(
-      (data: any) => {
-        this.gpts = data;
-        this.gbl = this.gpts.length;
-      }
-    ),
-      (error: Error) => {
-        console.log(error.message);
-
-      }
-  }
 }  
