@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Client's Informations</h1>
+                    <h1>Informations du client</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Client's Profile</li>
+                        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                        <li class="breadcrumb-item active">Profile client</li>
                     </ol>
                 </div>
             </div>
@@ -50,22 +50,22 @@
 
                             <p class="text-muted text-center">{{userData.title}}</p>
 
-                            <strong><i class="fas fa-user mr-1"></i> firstname </strong>
+                            <strong><i class="fas fa-user mr-1"></i> Nom </strong>
                             <a class="float-right"> {{userData.firstname| capitalize}}</a>
                             <hr>
-                            <strong><i class="fas fa-user mr-1"></i> lastname </strong>
+                            <strong><i class="fas fa-user mr-1"></i> Prénom </strong>
                             <a class="float-right"> {{userData.lastname| capitalize}}</a>
                             <hr>
                             <strong><i class="fas fa-envelope mr-1"></i> Email </strong>
                             <a class="float-right"> {{userData.email}}</a>
                             <hr>
-                            <strong><i class="fas fa-phone mr-1"></i> Contact </strong>
+                            <strong><i class="fas fa-phone mr-1"></i> Téléphone </strong>
                             <a class="float-right"> {{userData.phone}}</a>
                             <hr>
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse </strong>
                             <a class="float-right">{{userData.address}}</a>
                             <hr>
-                            <strong><i class="fas fa-calendar mr-1"></i> Joined on </strong>
+                            <strong><i class="fas fa-calendar mr-1"></i> Membre depuis</strong>
                             <a class="float-right"> {{userData.joinedDate | date:'dd-MM-yyyy'}}</a>
                             <hr>
 
@@ -77,7 +77,7 @@
                 <div class="col-md-7">
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Bar Chart</h3>
+                            <h3 class="card-title">Diagramme à barres</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -96,7 +96,7 @@
                 </div>
                 <div class="container mt-4">
                     <div class="container-fluid">
-                        <h4 class="text-center mt-4">Search</h4>
+                        <h4 class="text-center mt-4">Rechercher</h4>
                         <div class="row">
                             <div class="col-md-8 offset-md-2">
                                 <form action="simple-results.html">
@@ -128,7 +128,7 @@
                             <button type="button" class="btn btn-dark" (click)="generateExcel()"><i
                                     class="fas fa-file-excel"></i> excel</button>
                             <button type="button" class="btn btn-dark" (click)="print()"><i class="fas fa-print"></i>
-                                print</button>
+                                imprimer</button>
 
                         </div>
 
@@ -190,7 +190,7 @@
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
                                 <tr class="mat-row" *matNoDataRow>
-                                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                                    <td class="mat-cell" colspan="4">Aucune donnée correspondant au filtre "{{input.value}}"</td>
                                 </tr>
                             </table>
 

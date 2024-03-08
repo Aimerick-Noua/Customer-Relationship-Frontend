@@ -41,9 +41,9 @@ export class CommandComponent {
   form: any;
   commandsData: any;
   constructor(private userService: UserService,  private authService: StorageService
-
+ 
   ) { }
-
+userbtn!:any;
 
 
   ngOnInit(): void {
@@ -51,7 +51,17 @@ export class CommandComponent {
   }
 
   getEmployeeById() {
+
+    const isLoggedIn = this.authService.isLoggedIn();
+  
+    if (isLoggedIn) {
+      const user = this.authService.getUser();
+      const roles = user.roles;
+      this.userbtn = roles.includes('ROLE_USER');
+    }
+
     this.userId = this.authService.getUser().id;
+    
     this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
         this.userData = this.form = data;

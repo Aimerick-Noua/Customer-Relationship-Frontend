@@ -85,7 +85,7 @@ export class ClientFormComponent {
 
           this.isUpdateFailed = false;
                   Swal.fire({
-            title: 'Client Updated Successfully',
+            title: 'Client mis à jour avec succès',
             icon: 'success',
             timer: 3000, // Time in milliseconds (2 seconds in this example)
             timerProgressBar: true, // Show timer progress bar

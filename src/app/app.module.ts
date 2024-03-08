@@ -14,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockHomeGuard } from './_services/block-home.guard';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BlockHomeGuard } from './_services/block-home.guard';
     RegisterComponent,
     HomeComponent,
     BoardUserComponent,
-    NavbarComponent
+    NavbarComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

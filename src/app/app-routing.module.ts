@@ -25,6 +25,7 @@ import { ClientFormComponent } from './dashboard/client/client-form/client-form.
 import { EmployeeComponent } from './dashboard/employee/employee.component';
 import { CommandManagementComponent } from './dashboard/command/command-management/command-management.component';
 import { ViewCommandComponent } from './dashboard/command/view-command/view-command.component';
+import { TaskComponent } from './dashboard/task/task.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path:'adminList',component:AdminManagementComponent},
       { path:'command', component:CommandComponent},
       { path:'client', component:ClientComponent},
+      { path:'tasks', component:TaskComponent},
       { path:'newCommand', component:CommandManagementComponent},
       { path:'viewCommand/:id', component:ViewCommandComponent},
       { path:'client/:id', component:ClientFormComponent},

@@ -60,7 +60,7 @@ export class ViewCommandComponent {
     this.userId = this.authService.getUser().id;
     this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
-        this.userData = this.form = data;
+        this.userData = data;
         this.commandsData = data.commands;
         this.getCommandsByid()
 

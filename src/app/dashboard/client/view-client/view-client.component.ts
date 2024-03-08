@@ -298,7 +298,7 @@ export class ViewClientComponent {
         ],
       };
       doc.addImage(imgData, 'PNG', paddingLeft, paddingTop, imgWidth, imgHeight);
-      doc.save('user_report.pdf');
+      doc.save('rapport.pdf');
     });
 
 

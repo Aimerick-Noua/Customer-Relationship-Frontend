@@ -45,6 +45,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { EmployeeComponent } from './employee/employee.component';
 import { CommandManagementComponent } from './command/command-management/command-management.component';
 import { ViewCommandComponent } from './command/view-command/view-command.component';
+import { TaskComponent } from './task/task.component';
+import { UserjoinedDateComponent } from './chart/userjoined-date/userjoined-date.component';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { ViewCommandComponent } from './command/view-command/view-command.compon
     UserbyidBarchartComponent,
     EmployeeComponent,
     CommandManagementComponent,
-    ViewCommandComponent
+    ViewCommandComponent,
+    TaskComponent,
+    UserjoinedDateComponent
   ],
   imports: [
     CommonModule,

@@ -1,137 +1,129 @@
-<div class="content-wrapper descend">
- 
-  
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-        
-          <!-- /.col -->
-          <div class="col-sm-4 mt-4">
-            <div class="card" >
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-  
-                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Clients info</a></li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-  
-                <div class="tab-pane" id="settings">
-                  <div class="form-group">
-                    <div class="text-center">
-                      <div class="position-relative">
-  
+<div class="content-wrapper descend" style="height: 90vh;">
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row d-flex justify-content-center " style="align-items: center;">
+
+        <!-- /.col -->
+        <div class="col-sm-4 mt-4">
+          <div class="card" style="margin-top: 10%;">
+            <div class="card-header p-2">
+              <ul class="nav nav-pills">
+
+                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Informations du client</a></li>
+              </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+
+              <div class="tab-pane" id="settings">
+                <div class="form-group">
+                  <div class="text-center">
+                    <div class="position-relative">
+
+                    </div>
+                  </div>
+                </div>
+                <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                  <div class="d-flex" style="flex-wrap: wrap;">
+                    <div class="form-group col-sm-12">
+                      <label for="firstname">Nom*</label>
+                      <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required
+                        minlength="3" maxlength="20" #firstname="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && firstname.errors }" />
+                      <div class="invalid-feedback" *ngIf="firstname.errors && f.submitted">
+                        <div *ngIf="firstname.errors['required']">Ce champ est requis</div>
+                        <div *ngIf="firstname.errors['minlength']">
+                          Le nom doit comporter au moins 3 caractères
+                        </div>
+                        <div *ngIf="firstname.errors['maxlength']">
+                          Le nom ne doit pas dépasser 20 caractères
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                      <label for="lastname">Prénom*</label>
+                      <input type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" required
+                        minlength="3" maxlength="20" #lastname="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && lastname.errors }" />
+                      <div class="invalid-feedback" *ngIf="lastname.errors && f.submitted">
+                        <div *ngIf="lastname.errors['required']">Ce champ est requis</div>
+                        <div *ngIf="lastname.errors['minlength']">
+                          Le prénom doit comporter au moins 3 caractères
+                        </div>
+                        <div *ngIf="lastname.errors['maxlength']">
+                          Le prénom ne doit pas dépasser 20 caractères
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-                    <div class="d-flex" style="flex-wrap: wrap;">
-                      <div class="form-group col-sm-12">
-                        <label for="firstname">FirstName</label>
-                        <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required
-                          minlength="3" maxlength="20" #firstname="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && firstname.errors }" />
-                        <div class="invalid-feedback" *ngIf="firstname.errors && f.submitted">
-                          <div *ngIf="firstname.errors['required']">firstname is required</div>
-                          <div *ngIf="firstname.errors['minlength']">
-                            firstname must be at least 3 characters
-                          </div>
-                          <div *ngIf="firstname.errors['maxlength']">
-                            firstname must be at most 20 characters
-                          </div>
+                  <div class="d-flex" style="flex-wrap: wrap;">
+                    <div class="form-group col-sm-12">
+                      <label for="phone">Téléphone*</label>
+                      <input type="number" class="form-control" name="phone" [(ngModel)]="form.phone" required
+                        minlength="9" maxlength="9" #phone="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && phone.errors }" />
+                      <div class="invalid-feedback" *ngIf="phone.errors && f.submitted">
+                        <div *ngIf="phone.errors['required']">Ce champ est requis</div>
+                        <div *ngIf="phone.errors['minlength']">
+                          Le numéro de téléphone doit comporter au moins 9 chiffres
                         </div>
-                      </div>
-                      <div class="form-group col-sm-12">
-                        <label for="lastname">LastName</label>
-                        <input type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" required
-                          minlength="3" maxlength="20" #lastname="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && lastname.errors }" />
-                        <div class="invalid-feedback" *ngIf="lastname.errors && f.submitted">
-                          <div *ngIf="lastname.errors['required']">lastname is required</div>
-                          <div *ngIf="lastname.errors['minlength']">
-                            lastname must be at least 3 characters
-                          </div>
-                          <div *ngIf="lastname.errors['maxlength']">
-                            lastname must be at most 20 characters
-                          </div>
+                        <div *ngIf="phone.errors['maxlength']">
+                          Le numéro de téléphone ne doit pas dépasser 9 chiffres
                         </div>
                       </div>
                     </div>
-                    <div class="d-flex" style="flex-wrap: wrap;">
-                      <div class="form-group col-sm-12">
-                        <label for="phone">Phone</label>
-                        <input type="number" class="form-control" name="phone" [(ngModel)]="form.phone" required
-                          minlength="9" maxlength="9" #phone="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && phone.errors }" />
-                        <div class="invalid-feedback" *ngIf="phone.errors && f.submitted">
-                          <div *ngIf="phone.errors['required']">phone is required</div>
-                          <div *ngIf="phone.errors['minlength']">
-                            phone number must be at least 9 numbers
-                          </div>
-                          <div *ngIf="phone.errors['maxlength']">
-                            phone number must be at most 9 numbers
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12">
-                        <label for="email">Email</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          name="email"
-                          [(ngModel)]="form.email"
-                          required
-                          email
-                          #email="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
-                        />
-                        <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
-                          <div *ngIf="email.errors['required']">Email is required</div>
-                          <div *ngIf="email.errors['email']">
-                            Email must be a valid email address
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" [(ngModel)]="form.address" required
-                          minlength="3" maxlength="20" #address="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && address.errors }" />
-                        <div class="invalid-feedback" *ngIf="address.errors && f.submitted">
-                          <div *ngIf="address.errors['required']">address is required</div>
-                          <div *ngIf="address.errors['minlength']">
-                            address must be at least 3 characters
-                          </div>
-                          <div *ngIf="address.errors['maxlength']">
-                            address must be at most 20 characters
-                          </div>
+                    <div class="form-group col-sm-12">
+                      <label for="email">Email*</label>
+                      <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+                        #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+                      <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+                        <div *ngIf="email.errors['required']">Ce champ est requis</div>
+                        <div *ngIf="email.errors['email']">
+                          L'adresse e-mail doit être une adresse e-mail valide
                         </div>
                       </div>
                     </div>
-                    <div class="pt-4"></div>
-                    <div class="form-group">
-                      <button class="btn btn-danger btn-block">Update</button>
+                    <div class="form-group col-sm-12">
+                      <label for="address">Adresse*</label>
+                      <input type="text" class="form-control" name="address" [(ngModel)]="form.address" required
+                        minlength="3" maxlength="30" #address="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && address.errors }" />
+                      <div class="invalid-feedback" *ngIf="address.errors && f.submitted">
+                        <div *ngIf="address.errors['required']">Ce champ est requis</div>
+                        <div *ngIf="address.errors['minlength']">
+                          L'adresse doit comporter au moins 3 caractères
+                        </div>
+                        <div *ngIf="address.errors['maxlength']">
+                          L'adresse ne doit pas dépasser 30 caractères
+                        </div>
+                      </div>
                     </div>
-  
-                    <!-- <div class="alert alert-warning" *ngIf="f.submitted && isUpdateFailed">
+                  </div>
+                  <div class="pt-4"></div>
+                  <div class="form-group">
+                    <button class="btn btn-danger btn-block">Enregistrer</button>
+                  </div>
+
+                  <!-- <div class="alert alert-warning" *ngIf="f.submitted && isUpdateFailed">
                       Update failed!<br />{{ errorMessage }}
                     </div> -->
-  
-                  </form>
-  
-                </div>
-                <!-- /.tab-pane -->
+
+                </form>
+
               </div>
-              <!-- /.tab-content -->
-            </div><!-- /.card-body -->
-          </div>
-          <!-- /.nav-tabs-custom -->
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div><!-- /.card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.nav-tabs-custom -->
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

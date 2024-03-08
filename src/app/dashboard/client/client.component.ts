@@ -91,33 +91,33 @@ export class ClientComponent {
   deleteUser(id: number) {
     // Show SweetAlert confirmation
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this client!',
+      title: 'Êtes-vous sûr(e) ?',
+      text: 'Vous ne pourrez pas récupérer ce client !',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: 'Oui, supprimez-le !',
+      cancelButtonText: 'Non, annulez !',
     }).then((result) => {
       if (result.isConfirmed) {
-        // User clicked "Yes, delete it!" - proceed with deletion
+        // L'utilisateur a cliqué sur "Oui, supprimez-le !" - procéder à la suppression
         this.userService.deleteUser(id).subscribe({
-          next: (res:any) => {
-            // Handle success
+          next: (res: any) => {
+            // Gérer la réussite
             Swal.fire({
-              title: 'Client deleted Successfully',
+              title: 'Client supprimé avec succès',
               icon: 'success',
               timer: 3000,
               timerProgressBar: true,
               showConfirmButton: false,
             });
-            // Optionally, you may want to refresh your data or perform other actions
+            // Éventuellement, vous pouvez rafraîchir vos données ou effectuer d'autres actions
             // this.data = this.getAllUsers();
           },
           error: (e: Error) => {
-            // Handle deletion error
+            // Gérer l'erreur de suppression
             Swal.fire({
               icon: 'error',
-              text: 'Failed to delete client',
+              text: 'Échec de la suppression du client',
               timer: 2000,
               timerProgressBar: true,
               showConfirmButton: false,
@@ -125,11 +125,11 @@ export class ClientComponent {
           }
         });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // User clicked "No, cancel!" - do nothing or show a message
-        Swal.fire('Cancelled', 'Client deletion was cancelled', 'info');
+        // L'utilisateur a cliqué sur "Non, annulez !" - ne rien faire ou afficher un message
+        Swal.fire('Annulé', 'La suppression du client a été annulée', 'info');
       }
     });
-  }
+}    
   
 
   generateExcel(): void {
