@@ -7,7 +7,7 @@
                     la meilleure <span>solution</span> pour
                     votre entreprise. </h1>
                 <p> Découvrez comment notre CRM peut améliorer votre efficacité et renforcer vos relations clients. </p>
-                <a href="#">Contactez-nous <i class="fa fa-angle-right" aria-hidden="true"></i></a></div>
+                <a routerLink="/login" *ngIf="!isLoggedIn()">Contactez-nous <i class="fa fa-angle-right" aria-hidden="true"></i></a></div>
             <div class="col-md-6">
                 <div class="card"><img class="card-img-top img-fluid" src="assets/solution/images/banner-img.png" alt=""></div>
             </div>

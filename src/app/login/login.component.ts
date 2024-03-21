@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: any = {
-    username: null,
+    email: null,
     password: null
   };
   isLoggedIn = false;
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, password } = this.form;
-
+    const username = this.form.email;
+    const password = this.form.password
     this.authService.login(username, password).subscribe({
       next: data => {
         this.storageService.saveUser(data);
@@ -39,10 +39,11 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;
         this.route.navigate(['/dashboard/home']);
+        this.reloadPage()
 
       },
       error: err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = "Mauvaises informations d’identification";
         this.isLoginFailed = true;
       }
     });

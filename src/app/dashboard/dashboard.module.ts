@@ -47,6 +47,11 @@ import { CommandManagementComponent } from './command/command-management/command
 import { ViewCommandComponent } from './command/view-command/view-command.component';
 import { TaskComponent } from './task/task.component';
 import { UserjoinedDateComponent } from './chart/userjoined-date/userjoined-date.component';
+import { DonotUserStatsComponent } from './chart/donot-user-stats/donot-user-stats.component';
+import { SexClientStatComponent } from './chart/sex-client-stat/sex-client-stat.component';
+import { ContactClientsComponent } from './contact-clients/contact-clients.component';
+import { ReadMailComponent } from './contact-clients/read-mail/read-mail.component';
+import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-employee-task.component';
 
 
 @NgModule({
@@ -81,7 +86,12 @@ import { UserjoinedDateComponent } from './chart/userjoined-date/userjoined-date
     CommandManagementComponent,
     ViewCommandComponent,
     TaskComponent,
-    UserjoinedDateComponent
+    UserjoinedDateComponent,
+    DonotUserStatsComponent,
+    SexClientStatComponent,
+    ReadMailComponent,
+    ContactClientsComponent,
+    AssignEmployeeTaskComponent
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { last } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 import Swal from 'sweetalert2';
+import { FileHandle } from '../../profile/file-handle';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-client-form',
   templateUrl: './client-form.component.html',
@@ -17,7 +20,8 @@ export class ClientFormComponent {
       phone: null,
       address: null,
       email: null,
-      password: null
+      password: null,
+      profile:null
     };
     isSuccessful = false;
     isUpdateFailed = false;
@@ -29,18 +33,20 @@ export class ClientFormComponent {
     content: any;
     errormessage = ''
     roles: any;
+    selectedImage: File | null = null; 
     showAdminBoard: any;
     showModeratorBoard: any;
    userData:any = [];
    userId!:number;
+   selectedImagePreview: any;
+   selectedFile: any;
     constructor(private userService: UserService, 
       private storageService: StorageService, 
       private authService:AuthService,
-      private route:Router
+      private route:Router,
+      private sanitizer:DomSanitizer,
   
-    ) { }
-    profileImage: string = 'assets/img/user4-128x128.jpg'; // Default image
-  
+    ) { }  
     
   
     ngOnInit(): void {
@@ -72,13 +78,53 @@ export class ClientFormComponent {
       }
     }
   
+    // openFileDialog() {
+    //   const inputElement = document.createElement('input');
+    //   inputElement.type = 'file';
+    //   inputElement.accept = 'image/*'; // Accept only image files
+    //   inputElement.onchange = (event: any) => {
+    //     this.onImageSelected(event);
+    //   };
+    //   inputElement.click();
+    // }
   
-    
-     onSubmit(): void {
-    
-      const { firstname,lastname,phone,address} = this.form;
+    // onImageSelected(event: any) {
+    //   this.selectedImage = event.target.files[0];
+    //   if (this.selectedImage) {
+    //     const reader = new FileReader();
+    //     reader.onload = (e: any) => {
+    //       this.selectedImagePreview = e.target.result;
+    //     };
+    //     reader.readAsDataURL(this.selectedImage);
+    //   }
+    // }
+    onFileSelectedEvent(event: any) {
+      if (event.target.files) {
+        this.selectedFile = event.target.files[0];
+  
+        if (this.selectedFile) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.selectedImagePreview = e.target.result;
+          };
+          reader.readAsDataURL(this.selectedFile);
+        }
+      }
       
-      this.authService.updateUser(this.userId, firstname, lastname, phone, address).subscribe({
+    }
+     onSubmit(): void {
+      const {firstname,lastname,phone,address,profile}=this.form;
+      console.log(firstname);
+      const formData = new FormData();
+      formData.append('firstname', firstname); 
+      formData.append('lastname', lastname); 
+      formData.append('address', address); 
+      formData.append('phone', phone); 
+      if (this.selectedFile) {
+        formData.append('profilePicture', profile, this.selectedFile?.name); // Append selected image
+      }
+
+      this.authService.updateUser(this.userId, formData).subscribe({
         next: data => {
           console.log(data);
           this.isSuccessful = true;

@@ -1,18 +1,20 @@
 <aside class="main-sidebar  elevation-4 "
-  style="background-image: url('/assets/leftside.svg'); position:fixed; background-color: #343a40;">
+  style="background-image: url('/assets/curves.svg'); position:fixed; background-color: #343a40; background-repeat: no-repeat;background-size: cover;">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link text-center">
-    <h5> <b class="text-secondary text-center">NetView CRM</b></h5>
+    <h5> <b class="text-secondary text-center navbar-brand">NetView CRM</b></h5>
   </a>
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image d-flex">
-        <img src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
+        <img *ngIf="!selectedImagePreview.url" src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
           class="img-circle elevation-2" alt="User Image" style="opacity: .8; width: 20%;" width="180px" height="180px">
+          <img [src]="selectedImagePreview.url" *ngIf="selectedImagePreview.url"
+          class="img-circle " alt="User Image" style="  height: 100%; width: 20%; border: 3px double skyblue" >
 
-        <a href="/dashboard/profile" class="nav-link" routerLink="profile" style="font-size: 20px;font-weight: 700;">
+        <a routerLink="/dashboard/profile" class="nav-link" routerLink="profile" style="font-size: 16px;font-weight: 700; cursor: pointer; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
         {{username |uppercase }}</a>
       </div>
     </div>
@@ -26,27 +28,27 @@
         <li class="nav-item" >
           <a routerLink="/dashboard/home" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-chart-bar"></i>
-            <p class="text-light">Dashboard</p>
+            <p class="text-light">Tableau de bord</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard || showEmployeeBoard">
           <a  class="nav-link" *ngIf="isLoggedIn" routerLink="/dashboard/client" routerLinkActive="active">
             <i class="nav-icon fas fa-users"></i>
                         <p class="text-light">
-              Clients
+                          Clientèle
             </p>
           </a>
         </li>
         <li class="nav-item" >
           <a routerLink="/dashboard/command" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-shopping-cart"></i>
-            <p class="text-light">Commands</p>
+            <p class="text-light">Commandes</p>
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/dashboard/commands" class="nav-link">
+          <a routerLink="/dashboard/contactclients" class="nav-link">
             <i class="nav-icon fas fa-cogs"></i>
-            <p class="text-light">Services</p>
+            <p class="text-light">Courrier</p>
           </a>
         </li>
         
@@ -54,7 +56,7 @@
         <li class="nav-item" *ngIf="showAdminBoard">
           <a routerLink="/dashboard/charts" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-chart-line"></i>
-            <p class="text-light">Statistics</p>
+            <p class="text-light">Statistiques</p>
           </a>
         </li>
         
@@ -62,15 +64,15 @@
         <li class="nav-item">
           <a routerLink="/dashboard/products" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-shopping-bag"></i>
-            <p class="text-light">Products</p>
+            <p class="text-light">Produits</p>
           </a>
         </li>
         
 
-        <li class="nav-item">
-          <a routerLink="tasks" class="nav-link" routerLinkActive="active">
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a routerLink="assigTasks" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-tasks"></i>
-            <p class="text-light">Tasks</p>
+            <p class="text-light">Tâches</p>
           </a>
         </li>
         
@@ -78,24 +80,22 @@
         <li class="nav-item" *ngIf="showAdminBoard" >
           <a routerLink="userList" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-user-cog"></i>
-            <p class="text-light">Employees</p>
+            <p class="text-light">Employés</p>
           </a>
         </li>
 
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="adminList" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-users nav-icon"></i>
-            <p class="text-light" class="text-light">Admins</p>
+            <p class="text-light" class="text-light">Administrateurs</p>
           </a>
         </li>
-
-
-
- 
-        
-
-    
-        
+        <li class="nav-item">
+          <a routerLink="tasks" class="nav-link" routerLinkActive="active">
+            <i class="nav-icon fas fa-sticky-note"></i>
+            <p class="text-light">Note</p>
+          </a>
+        </li>
 
       </ul>
     </nav>

@@ -8,21 +8,18 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  updateUser(userId:any, firstname: any, lastname: any, phone: any, address: any) {
-    return this.http.put(
-      `http://localhost:8082/api/auth/users/`+userId,
-      {
-        firstname,
-        lastname,
-        phone,
-        address,
-      },
-      httpOptions
-    );  }
+  updateUser(userId: number, formData: FormData) {
+    console.log(formData);
+    
+  
+    return this.http.put(`http://localhost:8082/api/auth/users/${userId}`, formData);
+  }
   forgotPassword(email: any) {
 return this.http.post(AUTH_API + 'forgot',{email})  }
   constructor(private http: HttpClient) {}

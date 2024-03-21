@@ -26,10 +26,12 @@ import { EmployeeComponent } from './dashboard/employee/employee.component';
 import { CommandManagementComponent } from './dashboard/command/command-management/command-management.component';
 import { ViewCommandComponent } from './dashboard/command/view-command/view-command.component';
 import { TaskComponent } from './dashboard/task/task.component';
+import { ContactClientsComponent } from './dashboard/contact-clients/contact-clients.component';
+import { AssignEmployeeTaskComponent } from './dashboard/assign-employee-task/assign-employee-task.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard', component: DashboardComponent,canActivateChild: [AuthGuard],
+    path: 'dashboard', component: DashboardComponent, canActivateChild: [AuthGuard],
     children: [
       { path: 'home', component: ContentComponent },
       { path: 'employee', component: EmployeeManagementComponent },
@@ -39,23 +41,25 @@ const routes: Routes = [
       { path: 'chat', component: ChatComponent },
       { path: 'manager', component: ManagerManagementComponent },
       { path: 'admin', component: AdminManagementComponent },
-      { path:'userList',component:UserListComponent},
-      { path:'adminList',component:AdminManagementComponent},
-      { path:'command', component:CommandComponent},
-      { path:'client', component:ClientComponent},
-      { path:'tasks', component:TaskComponent},
-      { path:'newCommand', component:CommandManagementComponent},
-      { path:'viewCommand/:id', component:ViewCommandComponent},
-      { path:'client/:id', component:ClientFormComponent},
+      { path: 'userList', component: UserListComponent },
+      { path: 'adminList', component: AdminManagementComponent },
+      { path: 'command', component: CommandComponent },
+      { path: 'client', component: ClientComponent },
+      { path: 'tasks', component: TaskComponent },
+      { path: 'contactclients', component: ContactClientsComponent },
+      { path: 'newCommand', component: CommandManagementComponent },
+      { path: 'viewCommand/:id', component: ViewCommandComponent },
+      { path: 'client/:id', component: ClientFormComponent },
       { path: 'viewemp/:id', component: ViewEmployeeComponent },
-      { path: 'viewclient/:id', component: ViewClientComponent },      
+      { path: 'viewclient/:id', component: ViewClientComponent },
+      { path:'assigTasks', component:AssignEmployeeTaskComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]
   },
-  { path: 'home', component: HomeComponent,canActivate:[BlockHomeGuard] },
-  { path: 'login', component: LoginComponent,canActivate:[BlockHomeGuard]},
-  { path: 'register', component: RegisterComponent ,canActivate:[BlockHomeGuard]},
+  { path: 'home', component: HomeComponent, canActivate: [BlockHomeGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [BlockHomeGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [BlockHomeGuard] },
   { path: 'user', component: BoardUserComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

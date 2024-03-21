@@ -7,14 +7,8 @@
       <div class="row d-flex justify-content-center " style="align-items: center;">
 
         <!-- /.col -->
-        <div class="col-sm-4 mt-4">
+        <div class="col-sm-6 mt-0">
           <div class="card" style="margin-top: 10%;">
-            <div class="card-header p-2">
-              <ul class="nav nav-pills">
-
-                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Informations du client</a></li>
-              </ul>
-            </div><!-- /.card-header -->
             <div class="card-body">
 
               <div class="tab-pane" id="settings">
@@ -26,7 +20,12 @@
                   </div>
                 </div>
                 <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-                  <div class="d-flex" style="flex-wrap: wrap;">
+                  <div class="container d-flex" style="display: flex;justify-content: center;">
+                    <img *ngIf="!selectedImage" src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain" alt="Default Image" (click)="onFileSelectedEvent($event)" style="width: 150px; height: 150px;"> <img *ngIf="selectedImage" [src]="selectedImagePreview" style="width: 150px; height: 150px; border-radius: 50%;" > 
+                  </div>
+                    <div class="d-flex" style="flex-wrap: wrap;">
+                      <label for="profileImage">Photo de profil:</label>
+  
                     <div class="form-group col-sm-12">
                       <label for="firstname">Nom*</label>
                       <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required

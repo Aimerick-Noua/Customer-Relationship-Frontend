@@ -10,11 +10,16 @@ export class ChartComponent implements OnInit{
   allUsers: any=[];
   errormessage!: string;
   joinedYearNumber:any=[];
+  ClientCount!: number;
+  EmployeeCount!: number;
+  AdminCount!: number;
+  AllUsersData: any;
 
 
   constructor( private userService: UserService) { }
   ngOnInit(): void {
  this.getAllUsersWithAllCommands();
+ this.AllUsers()
   }
 
 
@@ -22,6 +27,8 @@ export class ChartComponent implements OnInit{
     this.userService.getAllCommands().subscribe(
       (data: any) => {
         this.allUsers = data;
+        console.log(this.allUsers);
+        
         this.joinedYearNumber = this.groupClientsByJoinedYear(this.allUsers);
         console.log(this.joinedYearNumber);
         
@@ -57,4 +64,35 @@ export class ChartComponent implements OnInit{
 
     return groupedData;
   }
+
+ AllUsers() {
+    this.userService.getAllUsers().subscribe(
+      (data: any) => {
+        this.AllUsersData = data;
+        console.log(this.AllUsersData);
+  
+        this.AdminCount = this.countUsersByRole(this.AllUsersData, 'ROLE_ADMIN');
+        this.EmployeeCount = this.countUsersByRole(this.AllUsersData, 'ROLE_EMPLOYEE');
+        this.ClientCount = this.countUsersByRole(this.AllUsersData, 'ROLE_USER');
+  
+        console.log("Admin Count: ", this.AdminCount);
+        console.log("Employee Count: ", this.EmployeeCount);
+        console.log("Client Count: ", this.ClientCount);
+      },
+      (err: Error) => {
+        console.log(err.message);
+      }
+    );
+  }
+  
+  countUsersByRole(users: any[], role: string): number {
+    return users.reduce((count, user) => {
+      const userRoles = user.roles.map((r: any) => r.name);
+      if (userRoles.includes(role)) {
+        return count + 1;
+      }
+      return count;
+    }, 0);
+  }
+  
 }

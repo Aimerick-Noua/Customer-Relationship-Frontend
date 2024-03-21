@@ -1,15 +1,15 @@
-<div class="content-wrapper descend" style="height: 90vh;">
+<div class="content-wrapper descend" style="height: 100vh;">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Profile</h1>
+          <h1>Profil Utilisateur</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">User Profile</li>
+            <li class="breadcrumb-item"><a href="#">CRM</a></li>
+            <li class="breadcrumb-item active">Profil Utilisateur</li>
           </ol>
         </div>
       </div>
@@ -30,11 +30,12 @@
                                 <div class="position-relative">
                                     <label for="imageInput" class="profile-image">
                                         <div class=" image d-flex">
-                                            <img *ngIf="allUsers && allUsers.profile && allUsers.profile[0]?.url"
-                                                [src]="allUsers.profile[0].url" class="img-circle elevation-3"
-                                                alt="User profile picture" style="width: 150px; height: 150px;">
-
-                                            <img *ngIf="!allUsers || !allUsers.profile || !allUsers.profile[0]?.url"
+                                                <img *ngIf="imageUrl"
+                                                [src]="imageUrl"
+                                                class="img-circle elevation-3"
+                                                alt="User profile picture"
+                                                style="width: 150px; height: 150px;">
+                                            <img *ngIf="!imageUrl"
                                                 src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
                                                 alt="Profile Picture" width="150" style="border-radius: 50%;">
                                             <span class="pencil-icon">
@@ -44,6 +45,8 @@
                                     </label>
 
                                 </div>
+                                <label for="profileImage" style="align-items: start;">Photo de profil:</label>
+
                             </div>
 
                             <h3 class="profile-username text-center">{{content}}</h3>
@@ -75,14 +78,8 @@
                     </div>
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 ">
+        <div class="col-sm-6 ">
           <div class="card">
-            <div class="card-header p-2">
-              <ul class="nav nav-pills">
-
-                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Informations du client</a></li>
-              </ul>
-            </div><!-- /.card-header -->
             <div class="card-body">
 
               <div class="tab-pane" id="settings">
@@ -94,7 +91,17 @@
                   </div>
                 </div>
                 <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                  <div class="container d-flex" style="display: flex;justify-content: center;">
+                  <img *ngIf="!selectedImage && !selectedImagePreview?.url" class="profile-picture" src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain" alt="Default Image" (click)="openFileDialog()" style="width: 150px; height: 150px;cursor: pointer;"> <img *ngIf="selectedImage" [src]="selectedImagePreview" style="width: 150px; height: 150px; border-radius: 50%;  cursor: pointer;" (click)="openFileDialog()"> 
+                  <img *ngIf="selectedImagePreview?.url"
+                  [src]="selectedImagePreview.url"
+                  class="img-circle elevation-3 profile-picture"
+                  alt="User profile picture"
+                  style="width: 150px; height: 150px; cursor: pointer; " (click)="openFileDialog()">
+                </div>
                   <div class="d-flex" style="flex-wrap: wrap;">
+                    <label for="profileImage">Photo de profil:</label>
+
                     <div class="form-group col-sm-12">
                       <label for="firstname">Nom*</label>
                       <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required

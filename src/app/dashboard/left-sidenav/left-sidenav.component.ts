@@ -5,6 +5,9 @@ import { StorageService } from 'src/app/_services/storage.service';
 import { EventBusService } from 'src/app/_shared/event-bus.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { UserService } from 'src/app/_services/user.service';
+import { SharedImageUrlService } from 'src/app/_services/shared-image-url.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ImageServiceService } from 'src/app/_services/image-service.service';
 
 
 @Component({
@@ -14,19 +17,29 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class LeftSidenavComponent {
 
+
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false; 
   showEmployeeBoard = false;
   showUserBoard: boolean=false;
-
+  image:any;
   username!:string;
   userData:any=[];
 
   userId: any;
+  imageUrl!: string;
+  selectedImagePreview: any;
+  errormessage!: string;
   
   
-  constructor(  private storageService: StorageService, private authService:UserService){}
+  constructor(  private storageService: StorageService,
+     private authService:UserService,
+     private imageUrlService: SharedImageUrlService,
+     private sanitizer:DomSanitizer,
+     private imageService:ImageServiceService,
+
+     ){}
   // ngOnInit():void{
   //   if(this.isLoggedIn){
   //     this.showAdminBoard = this.roles.includes('ADMIN');
@@ -55,13 +68,38 @@ export class LeftSidenavComponent {
       this.showUserBoard = this.roles.includes('ROLE_USER');
   
       this.userId = user.id;
+      
     }
   
     this.authService.getEmployeeById(this.userId).subscribe(
       (data:any)=>{
         this.userData =data;
+        console.log(this.userData);
+        
         this.username=this.userData.firstname;
-    })
-  }
-  
-}
+        
+      if (this.userData.profilePicture?.picByte) {
+      this.selectedImagePreview = {
+        picByte: this.userData.profilePicture.picByte,
+        type: 'image/jpeg' // Adjust content type based on actual image type
+      };
+
+      const reader = new FileReader();
+      reader.readAsDataURL(this.imageService.dataURItoBlob(this.selectedImagePreview.picByte, this.selectedImagePreview.type));
+      reader.onloadend = () => {
+        if (reader.result) {
+          this.selectedImagePreview.url = this.sanitizer.bypassSecurityTrustUrl(reader.result as string);
+          this.imageUrlService.setImageUrl(this.selectedImagePreview.url);            }
+      };
+    } else {
+      // Handle case where profilePicture is missing or doesn't have picByte
+      this.selectedImagePreview = null; // Or set a default placeholder image URL
+    }
+
+    console.log(this.selectedImagePreview?.url); // Check if url is set after conversion
+  },
+  (err: Error) => {
+    this.errormessage = err.message;
+    console.log("error");
+  })
+}}

@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Liste de rappels</h1>
+                    <h1 class="m-0 text-dark">Tâches</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">NVA</a></li>
-                        <li class="breadcrumb-item active">Liste de rappels</li>
+                        <li class="breadcrumb-item active">tâches</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -37,11 +37,11 @@
                         required placeholder="Discuter avec les clients..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="time">Heure:</label>
+                    <label for="time">Responsable:</label>
                     <input type="time" id="time" class="form-control" [(ngModel)]="task.time" name="time" required>
                 </div>
                 <div class="form-group">
-                    <label for="date">Date:</label>
+                    <label for="date">À soumettre avant:</label>
                     <input type="date" id="date" class="form-control" [(ngModel)]="task.date" name="date" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -50,10 +50,10 @@
             
         </div>
         <div class="col-sm-7">
-            <p>Liste de rappels:</p>
+            <p>Liste des tâches:</p>
         
             <div class="card-body  bg-dark">
-                <ul class="todo-list" data-widget="todo-list" *ngIf="tasks !=null">
+                <ul class="todo-list" data-widget="todo-list">
                     <li *ngFor="let task of tasks; let i = index">
                         <!-- drag handle -->
                         <span class="handle">
@@ -77,7 +77,7 @@
                     </li>
                 </ul>
                 <ul class="todo-list" data-widget="todo-list" *ngIf="!tasks || tasks.length === 0">
-                    <span class="text-center" style="justify-content: center; font-size: 16px;">" Aucune rappel disponible.
+                    <span class="text-center" style="justify-content: center; font-size: 16px;">" Aucune tâche disponible.
                         </span>
                 </ul>
             </div>

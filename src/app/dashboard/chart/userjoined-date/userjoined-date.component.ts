@@ -40,7 +40,7 @@ export class UserjoinedDateComponent {
         labels: labels,
         datasets: [
           {
-            label: 'Number of Employees',
+            label: 'Nombre de clients',
             data: data,
             borderWidth: borderWidth,
           },
