@@ -9,9 +9,9 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image d-flex">
-        <img *ngIf="!selectedImagePreview.url" src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
+        <img *ngIf="!selectedImagePreview?.url" src="https://th.bing.com/th/id/OIP.yOis-r7BEqpfzx6Od63TLQAAAA?w=470&h=500&rs=1&pid=ImgDetMain"
           class="img-circle elevation-2" alt="User Image" style="opacity: .8; width: 20%;" width="180px" height="180px">
-          <img [src]="selectedImagePreview.url" *ngIf="selectedImagePreview.url"
+          <img [src]="selectedImagePreview?.url" *ngIf="selectedImagePreview?.url"
           class="img-circle " alt="User Image" style="  height: 100%; width: 20%; border: 3px double skyblue" >
 
         <a routerLink="/dashboard/profile" class="nav-link" routerLink="profile" style="font-size: 16px;font-weight: 700; cursor: pointer; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
