@@ -40,7 +40,6 @@ export class ContentComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       (data: any) => {
         this.userData = data;
-        console.log(this.userData);
 
         // Initialize counters for admins and users
         let countAdmin = 0;
