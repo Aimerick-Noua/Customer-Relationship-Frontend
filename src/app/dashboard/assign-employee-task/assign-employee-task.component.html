@@ -1,4 +1,3 @@
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper descend" style="height: 95vh;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -24,34 +23,41 @@
             <div class="card-header">
                 <h3 class="card-title text-center">
                     <i class="ion ion-clipboard mr-1"></i>
-                    
+
                 </h3>
 
             </div>
-           
+
 
             <form (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="content">Contenu:</label>
-                    <textarea type="text" id="content" class="form-control" [(ngModel)]="task.content" name="content"
-                        required placeholder="Discuter avec les clients..."></textarea>
+                    <textarea type="text" id="content" class="form-control" [(ngModel)]="task.description"
+                        name="content" required placeholder="Discuter avec les clients..."></textarea>
                 </div>
                 <div class="form-group">
                     <label for="time">Responsable:</label>
-                    <input type="time" id="time" class="form-control" [(ngModel)]="task.time" name="time" required>
+                    <input type="text" spellcheck="false" placeholder="Search for a street" class="form-control focus capitalize" [formControl]="control"
+                        [matAutocomplete]="auto" class="example-input"/>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+                            {{street | capitalize}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </div>
                 <div class="form-group">
-                    <label for="date">À soumettre avant:</label>
-                    <input type="date" id="date" class="form-control" [(ngModel)]="task.date" name="date" required>
+                    <label for="date">Pour le:</label>
+                    <input type="date" id="date" class="form-control" [(ngModel)]="task.date_limit" name="date"
+                        required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
 
-            
+
         </div>
         <div class="col-sm-7">
             <p>Liste des tâches:</p>
-        
+
             <div class="card-body  bg-dark">
                 <ul class="todo-list" data-widget="todo-list">
                     <li *ngFor="let task of tasks; let i = index">
@@ -66,7 +72,7 @@
                             <label for="todoCheck1"></label>
                         </div>
                         <!-- todo text -->
-                        <span class="text">  {{ task.content }}</span>
+                        <span class="text"> {{ task.content }}</span>
                         <!-- Emphasis label -->
                         <small class="badge badge-warning"><i class="far fa-calendar"></i> {{ task.date }}</small>
                         <small class="badge badge-danger"><i class="far fa-clock"></i> {{ task.time }}</small>
@@ -77,12 +83,13 @@
                     </li>
                 </ul>
                 <ul class="todo-list" data-widget="todo-list" *ngIf="!tasks || tasks.length === 0">
-                    <span class="text-center" style="justify-content: center; font-size: 16px;">" Aucune tâche disponible.
-                        </span>
+                    <span class="text-center" style="justify-content: center; font-size: 16px;">" Aucune tâche
+                        disponible.
+                    </span>
                 </ul>
             </div>
 
         </div>
     </div>
     <!-- /.card -->
-</div>
+</div> 

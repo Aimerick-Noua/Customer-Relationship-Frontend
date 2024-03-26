@@ -80,6 +80,7 @@ export class CommandManagementComponent {
         this.route.navigate(['/dashboard/command'])
       },
       error: (err: any) => {
+        
         Swal.fire({
           title: err.error.message,
           icon: 'error',

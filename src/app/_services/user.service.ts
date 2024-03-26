@@ -17,9 +17,11 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  saveCommandWithProducts(userId: number, command: Command) {
-    console.log("hello world" +command);
-    
+  addTask(id: number, description: any, date_limit: any) {
+    return this.http.post(`${API_URL}users/tasks/`+id,{description,date_limit},{responseType: 'text'});
+  }
+
+  saveCommandWithProducts(userId: number, command: Command) {    
     return this.http.post(`${API_URL}users/clients/`+userId,command,httpOptions);
   }
 
@@ -56,6 +58,9 @@ return this.http.delete(`${API_URL}users/`+id,httpOptions)
 
   constructor(private http: HttpClient) {}
 
+  getTasksByUserId(userId: any) {
+    return this.http.get(`${API_URL}users/tasks/${userId}`,httpOptions)
+  } 
   update(id: any, userData: any) {
     return this.http.post(`${API_URL}` + id, userData, httpOptions);
   }

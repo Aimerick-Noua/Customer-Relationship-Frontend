@@ -24,7 +24,7 @@ export class ContentTaskComponent {
   showPagination = true;
   generatingPdf = false;
 
-  
+
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
@@ -40,14 +40,14 @@ export class ContentTaskComponent {
   commandsData: any;
   tasksData: any;
   constructor(private userService: UserService,  private authService: StorageService
- 
+
   ) { }
 userbtn!:any;
 
 
   ngOnInit(): void {
     const isLoggedIn = this.authService.isLoggedIn();
-  
+
     if (isLoggedIn) {
       const user = this.authService.getUser();
       const roles = user.roles;
@@ -85,7 +85,7 @@ userbtn!:any;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.tasksData);
-        
+
 
       }
     ),

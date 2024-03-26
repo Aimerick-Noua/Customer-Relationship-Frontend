@@ -73,9 +73,7 @@ export class LeftSidenavComponent {
   
     this.authService.getEmployeeById(this.userId).subscribe(
       (data:any)=>{
-        this.userData =data;
-        console.log(this.userData);
-        
+        this.userData =data;        
         this.username=this.userData.firstname;
         
       if (this.userData.profilePicture?.picByte) {
@@ -96,7 +94,6 @@ export class LeftSidenavComponent {
       this.selectedImagePreview = null; // Or set a default placeholder image URL
     }
 
-    console.log(this.selectedImagePreview?.url); // Check if url is set after conversion
   },
   (err: Error) => {
     this.errormessage = err.message;

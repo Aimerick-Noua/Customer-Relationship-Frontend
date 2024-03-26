@@ -52,6 +52,8 @@ import { SexClientStatComponent } from './chart/sex-client-stat/sex-client-stat.
 import { ContactClientsComponent } from './contact-clients/contact-clients.component';
 import { ReadMailComponent } from './contact-clients/read-mail/read-mail.component';
 import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-employee-task.component';
+import { ContentTaskComponent } from './content/content-task/content-task.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-emplo
     LeftSidenavComponent,
     RightSidenavComponent,
     FooterComponent,
+    ContentTaskComponent,
     DashboardComponent,
     ContentComponent,
     HeaderComponent,
@@ -91,10 +94,11 @@ import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-emplo
     SexClientStatComponent,
     ReadMailComponent,
     ContactClientsComponent,
-    AssignEmployeeTaskComponent
+    AssignEmployeeTaskComponent,
   ],
   imports: [
     CommonModule,
+    MatAutocompleteModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
@@ -113,7 +117,8 @@ import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-emplo
     MatPaginatorModule,
     MatInputModule,
     MatProgressBarModule,
-    NgChartsModule
+    NgChartsModule,
+    
   ]
 })
 export class DashboardModule { }
