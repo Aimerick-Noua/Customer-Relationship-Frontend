@@ -29,6 +29,8 @@ export class ContentTaskComponent {
 
   data: any;
   displayedColumns: string[] = ['id','description', 'date_limit',  'status', 'sent_date', 'actions'];
+  statusOptions = ['not_started', 'in_progress', 'completed'];
+
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -75,7 +77,18 @@ userbtn!:any;
   //     }
   // }
 
-
+  getStatusColor(status: string): any {
+    switch (status.toLowerCase()) {
+      case 'completed':
+        return { 'color': 'green' };
+      case 'in_progress':
+        return { 'color': 'yellow' };
+      case 'not_started':
+        return { 'color': 'red' };
+      default:
+        return {}; // Default style (optional)
+    }
+  }
   getTasksByUserId(){
     this.userService.getTasksByUserId(this.userId).subscribe(
       (data: any) => {

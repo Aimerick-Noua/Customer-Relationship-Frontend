@@ -2,15 +2,15 @@
 <section class="content">
   <div class="container mt-4">
     <div class="container-fluid">
-      <h4 class="text-center mt-4">Rechercher</h4>
+      <h4 class="text-center mt-4">Rechercher une Tache</h4>
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <form action="simple-results.html">
             <div class="input-group">
-              <input #input type="search" (keyup)="applyFilter($event)" class="form-control form-control-lg"
-                placeholder="Ex. 1">
+              <input #input type="search" (keyup)="applyFilter($event)" class="form-control form-control-md"
+                placeholder="Ex. organiser une reunion">
               <div class="input-group-append">
-                <button type="submit" class="btn btn-lg btn-default">
+                <button type="submit" class="btn btn-md btn-default">
                   <i class="fa fa-search"></i>
                 </button>
               </div>
@@ -45,7 +45,7 @@
 
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            <td mat-cell *matCellDef="let row"> #{{row.id}} </td>
           </ng-container>
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Description de la tache </th>
@@ -53,26 +53,34 @@
           </ng-container>
           <ng-container matColumnDef="date_limit">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date limit</th>
-            <td mat-cell *matCellDef="let row"> {{row.date_limit}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.date_limit| date}} </td>
           </ng-container>
-
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> status </th>
-            <td mat-cell *matCellDef="let row"> {{row.status|lowercase}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row">
+              <select [(ngModel)]="row.status" class="p-1" [value]="row.status">
+                    {{ row.status.toLowerCase() === 'not_started' ? 'Not Started' : row.status | lowercase }}
+                <option *ngFor="let option of statusOptions" [value]="option">
+                  {{ row.status==='not_started'? 'Not Started':option==='in_progress'? 'In Progress':'Completed' }}
+                </option>
+              </select>
+            </td>
           </ng-container>
+          
+          
           <ng-container matColumnDef="sent_date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sent Date </th>
-            <td mat-cell *matCellDef="let row"> {{row.sent_date}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Reçu</th>
+            <td mat-cell *matCellDef="let row"> {{row.sent_date| date}} </td>
           </ng-container>
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
 
             <td mat-cell *matCellDef="let row" [class.hide-actions]="printing">
-              <button mat-icon-button color="success" [routerLink]="['../viewCommand', row.id ]">
-                <mat-icon>visibility</mat-icon>
+              <button mat-icon-button color="success">
+                <mat-icon>save</mat-icon>
               </button>
-              <button mat-icon-button color="primary" [routerLink]="['../newCommand', row.id ]" *ngIf="row.status =='PENDING'">
-                <mat-icon>edit</mat-icon>
+              <button mat-icon-button color="primary" [routerLink]="['../newCommand', row.id ]">
+                <mat-icon>delete</mat-icon>
               </button>
             </td>
           </ng-container>

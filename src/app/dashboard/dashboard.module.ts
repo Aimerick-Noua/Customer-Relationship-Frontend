@@ -54,6 +54,7 @@ import { ReadMailComponent } from './contact-clients/read-mail/read-mail.compone
 import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-employee-task.component';
 import { ContentTaskComponent } from './content/content-task/content-task.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   ],
   imports: [
     CommonModule,
+    MatSelectModule,
     MatAutocompleteModule,
     RouterModule,
     HttpClientModule,
