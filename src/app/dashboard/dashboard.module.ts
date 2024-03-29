@@ -55,6 +55,7 @@ import { AssignEmployeeTaskComponent } from './assign-employee-task/assign-emplo
 import { ContentTaskComponent } from './content/content-task/content-task.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import { CrmServicesComponent } from './crm-services/crm-services.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import {MatSelectModule} from '@angular/material/select';
     ReadMailComponent,
     ContactClientsComponent,
     AssignEmployeeTaskComponent,
+    CrmServicesComponent,
   ],
   imports: [
     CommonModule,

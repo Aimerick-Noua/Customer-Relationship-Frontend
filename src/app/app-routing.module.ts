@@ -28,6 +28,7 @@ import { ViewCommandComponent } from './dashboard/command/view-command/view-comm
 import { TaskComponent } from './dashboard/task/task.component';
 import { ContactClientsComponent } from './dashboard/contact-clients/contact-clients.component';
 import { AssignEmployeeTaskComponent } from './dashboard/assign-employee-task/assign-employee-task.component';
+import { CrmServicesComponent } from './dashboard/crm-services/crm-services.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'viewemp/:id', component: ViewEmployeeComponent },
       { path: 'viewclient/:id', component: ViewClientComponent },
       { path:'assigTasks', component:AssignEmployeeTaskComponent},
+      { path:'services', component:CrmServicesComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]

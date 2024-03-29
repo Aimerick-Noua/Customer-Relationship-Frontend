@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
-import { EventBusService } from 'src/app/_shared/event-bus.service';
-import { ProfileComponent } from '../profile/profile.component';
 import { UserService } from 'src/app/_services/user.service';
 import { SharedImageUrlService } from 'src/app/_services/shared-image-url.service';
 import { DomSanitizer } from '@angular/platform-browser';
