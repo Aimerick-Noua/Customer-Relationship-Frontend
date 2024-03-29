@@ -20,6 +20,12 @@ export class ContentComponent implements OnInit {
   showAdminBoard = false; 
   showEmployeeBoard = false;
   showUserBoard: boolean=false;
+
+  tasks:any;
+  taskNumber: any;
+  taskCompleted: any;
+  taskNotStarted: any;
+  taskInProgress: any;
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
   
@@ -66,5 +72,11 @@ export class ContentComponent implements OnInit {
       }
     );
   }
-
+  receiveData(data: string) {
+   this.tasks=data;
+   this.taskNumber = this.tasks.length;
+   this.taskCompleted = this.tasks.filter((d:any)=>d.status==='COMPLETED').length;
+   this.taskNotStarted = this.tasks.filter((d:any)=>d.status==='NOT_STARTED').length;
+   this.taskInProgress = this.tasks.filter((d:any)=>d.status==='IN_PROGRESS').length;
+  }
 }  

@@ -1,4 +1,3 @@
-
 <section class="content">
   <div class="container mt-4">
     <div class="container-fluid">
@@ -58,16 +57,21 @@
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
             <td mat-cell *matCellDef="let row">
-              <select [(ngModel)]="row.status" class="p-1" [value]="row.status">
-                    {{ row.status.toLowerCase() === 'not_started' ? 'Not Started' : row.status | lowercase }}
+              <select [(ngModel)]="row.status" class="p-1" [value]="row.status" style="border-radius: 22px;" [ngClass]="{
+                'completed-selected': row.status === 'COMPLETED',
+                'in-progress-selected': row.status === 'IN_PROGRESS',
+                'not-started-selected': row.status === 'NOT_STARTED'
+              }">
                 <option *ngFor="let option of statusOptions" [value]="option">
-                  {{ row.status==='not_started'? 'Not Started':option==='in_progress'? 'In Progress':'Completed' }}
+                  {{ option === 'NOT_STARTED' ? 'Non démarré' : option === 'IN_PROGRESS' ? 'en cours' : 'Terminé' }}
                 </option>
               </select>
-            </td>
+              
+              
+            
           </ng-container>
-          
-          
+
+
           <ng-container matColumnDef="sent_date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Reçu</th>
             <td mat-cell *matCellDef="let row"> {{row.sent_date| date}} </td>
@@ -76,7 +80,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
 
             <td mat-cell *matCellDef="let row" [class.hide-actions]="printing">
-              <button mat-icon-button color="success">
+              <button mat-icon-button color="success" (click)="updateStatus(row.id,row.status)">
                 <mat-icon>save</mat-icon>
               </button>
               <button mat-icon-button color="primary" [routerLink]="['../newCommand', row.id ]">
@@ -101,7 +105,7 @@
 </section>
 
 <script>
-$(document).ready(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 </script>

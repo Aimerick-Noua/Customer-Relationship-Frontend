@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Dashboard</h1>
+          <h1 class="m-0 text-dark">Tableau de bord</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+            <li class="breadcrumb-item active">Tableau de bord</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -72,14 +72,14 @@
       </div>
       <!-- /.row -->
       <div class="col-sm-12 d-flex" *ngIf="showEmployeeBoard">
-        <div class=" col-sm-4">
+        <div class=" col-sm-3">
           <div class="info-box">
-            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-circle"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Clients</span>
+              <span class="info-box-text">Tâche Non démarré</span>
               <span class="info-box-number">
-                {{countClient}}
+                {{taskNotStarted? taskNotStarted:'0'}}
                 <small></small>
               </span>
             </div>
@@ -90,28 +90,39 @@
         <!-- fix for small devices only -->
         <div class="clearfix hidden-md-up"></div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-sync"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Commands</span>
-              <span class="info-box-number">{{countEmployee}}</span>
+              <span class="info-box-text">Tâche en cours</span>
+              <span class="info-box-number">{{taskInProgress? taskInProgress:'0'}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
         </div>
         <!-- /.col -->
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money"></i></span>
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total amount</span>
-              <span class="info-box-number">{{countClient}}</span>
+              <span class="info-box-text">Tâche Terminé</span>
+              <span class="info-box-number">{{taskCompleted? taskCompleted:'0'}}</span> 
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
 
-              
+            <div class="info-box-content">
+              <span class="info-box-text">Nombre de tâches</span>
+              <span class="info-box-number">{{taskNumber? taskNumber:'0'}}</span> 
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -168,7 +179,7 @@
         <!-- /.col -->
         
       </div>
-      <app-content-task *ngIf="showEmployeeBoard"></app-content-task>
+      <app-content-task *ngIf="showEmployeeBoard" (dataEvent)="receiveData($event)"></app-content-task>
 
     </div>
 

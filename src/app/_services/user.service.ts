@@ -17,6 +17,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
+  updateStatus(id: number, status: string) {
+    return this.http.put(`${API_URL}users/tasks/task/`+id,{status},httpOptions);
+  }
   addTask(id: number, description: any, date_limit: any) {
     return this.http.post(`${API_URL}users/tasks/`+id,{description,date_limit},{responseType: 'text'});
   }

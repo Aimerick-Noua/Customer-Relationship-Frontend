@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx'; 
@@ -15,6 +15,7 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./content-task.component.css']
 })
 export class ContentTaskComponent {
+
   userData: any = [];
   allUsers: any = [];
   user_id!: number;
@@ -29,7 +30,7 @@ export class ContentTaskComponent {
 
   data: any;
   displayedColumns: string[] = ['id','description', 'date_limit',  'status', 'sent_date', 'actions'];
-  statusOptions = ['not_started', 'in_progress', 'completed'];
+  statusOptions = ['NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'];
 
   dataSource!: MatTableDataSource<any>;
 
@@ -41,15 +42,17 @@ export class ContentTaskComponent {
   form: any;
   commandsData: any;
   tasksData: any;
+  @Output() dataEvent = new EventEmitter<any>();
   constructor(private userService: UserService,  private authService: StorageService
 
   ) { }
 userbtn!:any;
 
-
+sendData() {
+  this.dataEvent.emit(this.tasksData);
+}
   ngOnInit(): void {
     const isLoggedIn = this.authService.isLoggedIn();
-
     if (isLoggedIn) {
       const user = this.authService.getUser();
       const roles = user.roles;
@@ -77,18 +80,7 @@ userbtn!:any;
   //     }
   // }
 
-  getStatusColor(status: string): any {
-    switch (status.toLowerCase()) {
-      case 'completed':
-        return { 'color': 'green' };
-      case 'in_progress':
-        return { 'color': 'yellow' };
-      case 'not_started':
-        return { 'color': 'red' };
-      default:
-        return {}; // Default style (optional)
-    }
-  }
+
   getTasksByUserId(){
     this.userService.getTasksByUserId(this.userId).subscribe(
       (data: any) => {
@@ -98,6 +90,7 @@ userbtn!:any;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         console.log(this.tasksData);
+        this.sendData();
 
 
       }
@@ -108,6 +101,32 @@ userbtn!:any;
 
       }
 
+  }
+  updateStatus(id:number,status:string) {
+    this.userService.updateStatus(id,status).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: 'Statut mis-a-jour avec succès',
+          icon: 'success',
+          timer: 3000, 
+          timerProgressBar: true, 
+          showConfirmButton: false, 
+        });
+        setTimeout(this.reloadPage,3000)
+      },
+      error: (err: any) => {
+        console.log(err.message);
+
+        Swal.fire({
+          title: 'Échec de la mis-a-jour du statut',
+          icon: 'error',
+          timer: 2000, 
+          timerProgressBar: true, 
+          showConfirmButton: false, 
+        });
+      },
+    });   
   }
 
 
@@ -197,7 +216,7 @@ userbtn!:any;
 
     // Write the table content to the new window
     printWindow.document.open();
-    printWindow.document.write('<html><head><title>Print</title></head><body><h2>List of employees in NetView Solutions</h2>');
+    printWindow.document.write('<html><head><title>Print</title></head><body><h2>Liste des Tâches</h2>');
     printWindow.document.write(tableContent.outerHTML);
     printWindow.document.write('</body></html>');
     printWindow.document.close();

@@ -24,3 +24,17 @@
 .no-print {
   display: block !important;
 }
+.completed-selected {
+  background-color: green; 
+  color: white;
+}
+
+.in-progress-selected {
+  background-color: orange;
+  color: white; 
+}
+
+.not-started-selected {
+  background-color: red;
+  color: #fff; 
+}
