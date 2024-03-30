@@ -24,7 +24,7 @@ export class UserService {
     return this.http.post(`${API_URL}users/tasks/`+id,{description,date_limit},{responseType: 'text'});
   }
 
-  saveCommandWithProducts(userId: number, command: Command) {    
+  saveCommand(userId: number, command: Command) {    
     return this.http.post(`${API_URL}users/clients/`+userId,command,httpOptions);
   }
 

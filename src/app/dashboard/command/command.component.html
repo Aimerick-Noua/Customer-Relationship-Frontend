@@ -38,11 +38,6 @@
     </div>
     <div class="container mt-4">
       <div class="row">
-
-        <div class="col-md-12 mb-3 mr-4">
-          <button *ngIf="userbtn" class="btn btn-primary" style="float: right;" routerLink="/dashboard/newCommand">Passer une commande</button>
-          <button *ngIf="!userbtn" class="btn btn-primary" style="float: right;" routerLink="/dashboard/newCommand">Ajouter une commande</button>
-        </div>
         <div class="btn-group col-md-3 mb-2" role="group" aria-label="Basic example"
           style="float: right;margin-right: 3%;">
           <button type="button" class="btn btn-dark" (click)="generateReport()"><i class="fas fa-file-pdf"></i>
@@ -66,23 +61,23 @@
 
             <ng-container matColumnDef="ID">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+              <td mat-cell *matCellDef="let row"> #{{row.id}} </td>
             </ng-container>
-            <ng-container matColumnDef="product">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> product </th>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> service </th>
               <td mat-cell *matCellDef="let row">
-                <button mat-icon-button color="success" (click)="GetCommandProductList(row.id)">
-                  <i class="fa fa-shopping-cart text-primary"></i>
-                </button>
+                {{row.title}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.description}}
               </td>
             </ng-container>
             <ng-container matColumnDef="dateCommand">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> date</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d’envoi</th>
               <td mat-cell *matCellDef="let row"> {{row.dateCommand}} </td>
-            </ng-container>
-            <ng-container matColumnDef="totalAmount">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> totalAmount </th>
-              <td mat-cell *matCellDef="let row"> {{row.totalAmount}} </td>
             </ng-container>
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> status </th>

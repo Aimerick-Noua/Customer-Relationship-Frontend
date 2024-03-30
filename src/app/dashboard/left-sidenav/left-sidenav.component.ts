@@ -70,7 +70,7 @@ export class LeftSidenavComponent {
     this.authService.getEmployeeById(this.userId).subscribe(
       (data:any)=>{
         this.userData =data;        
-        this.username=this.userData.firstname;
+        this.username=this.userData?.firstname;
         
       if (this.userData.profilePicture?.picByte) {
       this.selectedImagePreview = {

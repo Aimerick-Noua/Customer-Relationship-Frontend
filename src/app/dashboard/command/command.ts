@@ -1,10 +1,8 @@
 export interface Command {
-    products: Product[];
-  }
+title:string,
+description:string,
+email:string,
+phone:string,
+address:string
+}
   
-  export interface Product {
-    name: string;
-    description: string;
-    quantity: number;
-    price: number;
-  }

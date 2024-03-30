@@ -30,7 +30,7 @@ export class CommandComponent {
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['ID','totalAmount', 'dateCommand',  'product', 'status', 'actions'];
+  displayedColumns: string[] = ['ID','title', 'description',  'dateCommand', 'status', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
