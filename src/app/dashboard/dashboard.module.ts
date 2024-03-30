@@ -56,6 +56,8 @@ import { ContentTaskComponent } from './content/content-task/content-task.compon
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import { CrmServicesComponent } from './crm-services/crm-services.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ServicesDialogComponent } from './crm-services/services-dialog/services-dialog.component';
 
 
 @NgModule({
@@ -98,6 +100,7 @@ import { CrmServicesComponent } from './crm-services/crm-services.component';
     ContactClientsComponent,
     AssignEmployeeTaskComponent,
     CrmServicesComponent,
+    ServicesDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -120,6 +123,7 @@ import { CrmServicesComponent } from './crm-services/crm-services.component';
     MatRadioModule,
     MatPaginatorModule,
     MatInputModule,
+    MatDialogModule,
     MatProgressBarModule,
     NgChartsModule,
     

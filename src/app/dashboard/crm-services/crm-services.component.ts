@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ServicesDialogComponent } from './services-dialog/services-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-crm-services',
@@ -6,7 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./crm-services.component.css']
 })
 export class CrmServicesComponent {
-  color = `rgba(`+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+`)`
  services =  [
       {
         "id": 1,
@@ -61,7 +62,24 @@ export class CrmServicesComponent {
     unhoverCard(service: any) {
       service.hovered = false;
     }
-    
+    animal!: string;
+    name!: string;
+    index!:number;
+  
+    constructor(public dialog: MatDialog) {}
+    openDialog(index: number, title: string): void {
+      console.log('Index:', index);
+      console.log('Title:', title);
+      const dialogRef = this.dialog.open(ServicesDialogComponent, {
+        data: { index: index, title: title }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        // Do something with the result if needed
+      });
+    }
+  
   }
   
 

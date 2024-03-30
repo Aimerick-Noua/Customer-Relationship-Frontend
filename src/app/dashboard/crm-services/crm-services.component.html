@@ -37,24 +37,24 @@
 
            
             </div>
-
             <div class="col-sm-12">
                 <div class="row">
-                <div class="col-sm-4" *ngFor="let service of services">
-                    <div class="card text-center card-hover" style="height: 250px; cursor: pointer;">
-                        <div class="oval" style="display: flex; justify-content: center;">
-                          <i class="{{ service.icon }} card-img-top col-sm-4" style="font-size: 60px; padding-top: 5%; color: skyblue;"></i>
-                        </div>
-                        <div class="card-body" style="display: flex; justify-content: center;">
-                          <div class="text-center">
-                            <h3 class="text-center" style="font-size: 18px;">{{ service.title }}</h3>
-                            <span class="text-center" style="font-size: 15px;">{{ service.description }}</span>
-                            <button class="btn btn-primary get-service-btn" style="display: none;">Get Service</button>
+
+                    <div class="col-sm-4" *ngFor="let service of services; let i=index">
+                        <div class="card text-center card-hover" (click)="openDialog(i, service.title)" style="height: 250px; cursor: pointer;">
+                          <div class="oval" style="display: flex; justify-content: center;">
+                            <i class="{{ service.icon }} card-img-top col-sm-4" style="font-size: 60px; padding-top: 5%; color: skyblue;"></i>
+                          </div>
+                          <div class="card-body" style="display: flex; justify-content: center;">
+                            <div class="text-center">
+                              <h3 class="text-center" style="font-size: 18px;">{{ service.title }}</h3>
+                              <span class="text-center" style="font-size: 15px;">{{ service.description }}</span>
+                              <button class="btn btn-primary get-service-btn" style="display: none;">Get Service</button>
+                            </div>
                           </div>
                         </div>
                       </div>
                       
-                </div>
             </div>
             </div>
         </div>

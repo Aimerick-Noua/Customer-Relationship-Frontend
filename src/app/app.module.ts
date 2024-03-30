@@ -32,7 +32,6 @@ import { SafePipe } from './pipes/safe.pipe';
     FormsModule,
     HttpClientModule,
     DashboardModule,
-    BrowserAnimationsModule,
     
   ],
   providers: [httpInterceptorProviders,BlockHomeGuard],
