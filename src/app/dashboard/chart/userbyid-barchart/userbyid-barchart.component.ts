@@ -25,29 +25,29 @@ export class UserbyidBarchartComponent {
 
   ngOnInit(): void {
     if (this.commandsData) {
-      // Calculate total amount against dateCommand
-      const dataMap = new Map<string, number>();
+      // Initialize an object to store total commands per year
+      const totalCommandsPerYear: {[key: string]: number} = {};
+  
+      // Iterate over each command
       this.commandsData.forEach((command) => {
-          const dateCommand = command.dateCommand;
-          const totalAmount = command.totalAmount;
-
-          if (dateCommand && totalAmount) {
-            // Accumulate total amount for each dateCommand
-            dataMap.set(dateCommand, (dataMap.get(dateCommand) || 0) + totalAmount);
-          }
+        const dateCommand = new Date(command.dateCommand);
+        const year = dateCommand.getFullYear().toString(); // Extract year from dateCommand
+  
+        // Increment total commands for the corresponding year
+        totalCommandsPerYear[year] = (totalCommandsPerYear[year] || 0) + 1;
       });
-
-      // Extract labels and data from the calculated dataMap
-      const labels = Array.from(dataMap.keys());
-      const data = Array.from(dataMap.values());
-
+  
+      // Extract labels and data from the calculated totalCommandsPerYear object
+      const labels = Object.keys(totalCommandsPerYear);
+      const data = Object.values(totalCommandsPerYear);
+  
       const borderWidth = 2;
-
+  
       this.chartData = {
         labels: labels,
         datasets: [
           {
-            label: 'Total Commands per year',
+            label: 'Total des commandes par an',
             data: data,
             borderWidth: borderWidth,
           },
@@ -55,4 +55,5 @@ export class UserbyidBarchartComponent {
       };
     }
   }
+  
 }

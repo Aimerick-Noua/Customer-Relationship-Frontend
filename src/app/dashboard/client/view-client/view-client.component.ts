@@ -49,7 +49,7 @@ export class ViewClientComponent {
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
   data: any;
-  displayedColumns: string[] = ['ID', 'totalAmount', 'dateCommand',  'product', 'status', 'actions'];
+  displayedColumns: string[] = ['ID','title', 'description',  'dateCommand', 'status', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -73,7 +73,7 @@ export class ViewClientComponent {
         this.userData = this.form = data;
         this.commandsData = data.commands;
         this.getCommandsByid()
-        console.log(this.userData);
+        console.log(this.commandsData);
 
       }
     ),

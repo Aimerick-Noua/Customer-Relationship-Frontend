@@ -58,11 +58,13 @@ import {MatSelectModule} from '@angular/material/select';
 import { CrmServicesComponent } from './crm-services/crm-services.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ServicesDialogComponent } from './crm-services/services-dialog/services-dialog.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    TruncatePipe,
     LeftSidenavComponent,
     RightSidenavComponent,
     FooterComponent,
@@ -101,6 +103,7 @@ import { ServicesDialogComponent } from './crm-services/services-dialog/services
     AssignEmployeeTaskComponent,
     CrmServicesComponent,
     ServicesDialogComponent,
+    TruncatePipe,
   ],
   imports: [
     CommonModule,
