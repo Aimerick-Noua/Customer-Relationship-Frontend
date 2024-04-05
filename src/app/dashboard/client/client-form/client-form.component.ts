@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { last } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth.service';
 import { StorageService } from 'src/app/_services/storage.service';
@@ -45,19 +45,16 @@ export class ClientFormComponent {
       private authService:AuthService,
       private route:Router,
       private sanitizer:DomSanitizer,
+      private router: ActivatedRoute
   
     ) { }  
     
   
     ngOnInit(): void {
+      this.userId = this.router.snapshot.params['id'];
       this.isLoggedIn = this.storageService.isLoggedIn();
       if (this.isLoggedIn) {
-        const user = this.storageService.getUser();
-        this.roles = user.roles;
-        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-        this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-        this.username = user.username;
-        this.userId=user.id;
+      
       }
       this.getEmployeeById()
     }
