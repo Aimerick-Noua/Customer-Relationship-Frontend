@@ -62,7 +62,7 @@
         </li>
         
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!showAdminBoard && !showEmployeeBoard">
           <a routerLink="/dashboard/services" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-shopping-bag"></i>
             <p class="text-light">Services</p>
