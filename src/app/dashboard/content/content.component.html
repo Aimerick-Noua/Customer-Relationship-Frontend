@@ -194,7 +194,7 @@
                 </button>
               </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="commandsData">
               <app-userbyid-barchart *ngIf="commandsData" [commandsData]="commandsData"></app-userbyid-barchart>
             </div>
           </div>

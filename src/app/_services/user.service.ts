@@ -33,7 +33,7 @@ export class UserService {
 return this.http.delete(`${API_URL}users/`+id,httpOptions)
   }
   getAllCommands() {
-    return this.http.get(`${API_URL}users/clients`,httpOptions)
+    return this.http.get(`${API_URL}users/clients/commands`,httpOptions)
   }
   // getAllCommands(user_id:number) {
   //   return this.http.get(`${API_URL}/clients/`+user_id)
