@@ -25,9 +25,7 @@ export class CommandComponent {
   printing = false;
   showPagination = true;
   generatingPdf = false;
-  showAdminBoard = false; 
-  showEmployeeBoard = false;
-  showUserBoard: boolean=false;
+
   
   @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
 
@@ -42,55 +40,42 @@ export class CommandComponent {
   userId: any;
   form: any;
   commandsData: any;
-  allCommands: any;
-  constructor(private userService: UserService,
-      private authService: StorageService
+  constructor(private userService: UserService,  private authService: StorageService
  
   ) { }
 userbtn!:any;
 
 
   ngOnInit(): void {
-    this.getCommandInfo();
+    this.getEmployeeById()
   }
 
-  getCommandInfo() {
+  getEmployeeById() {
+
     const isLoggedIn = this.authService.isLoggedIn();
   
     if (isLoggedIn) {
       const user = this.authService.getUser();
       const roles = user.roles;
-      this.showAdminBoard = roles.includes('ROLE_ADMIN');
-      this.showEmployeeBoard = roles.includes('ROLE_EMPLOYEE');
-      this.showUserBoard = roles.includes('ROLE_USER');
-      this.userId = this.authService.getUser().id;
-    
-      if (this.showAdminBoard || this.showEmployeeBoard) {
-        // Fetch all commands for admin and employee
-        this.getAllCommands();
-      } else if (this.showUserBoard) {
-        this.userService.getAdminBoard(this.userId).subscribe(
-          (data: any) => {
-            this.userData = this.form = data;
-            this.commandsData = data.commands;
-            this.getCommandsByid()
-            console.log(this.userData);
-    
-          }
-        )}
+      this.userbtn = roles.includes('ROLE_USER');
     }
-  }
-  getAllCommands(){
-    this.userService.getAllCommands().subscribe(
+
+    this.userId = this.authService.getUser().id;
+    
+    this.userService.getAdminBoard(this.userId).subscribe(
       (data: any) => {
-        this.allCommands = data;
-        this.dataSource = new MatTableDataSource(this.allCommands);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.allUsers);
-        console.log(this.allCommands);
+        this.userData = this.form = data;
+        this.commandsData = data.commands;
+        this.getCommandsByid()
+        console.log(this.userData);
+
       }
-    )
+    ),
+      (err: Error) => {
+        this.errormessage = err.message;
+        console.log("error");
+
+      }
   }
   getCommandsByid() {
     

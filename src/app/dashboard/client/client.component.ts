@@ -44,21 +44,21 @@ export class ClientComponent {
   constructor(private router: ActivatedRoute, private userService: UserService, private storageService: StorageService) { }
 
 
-  getUserById() {
-    const user = this.storageService.getUser();
+  // getUserById() {
+  //   const user = this.storageService.getUser();
 
-    this.userService.getAdminBoard(user.id).subscribe(
-      (data: any) => {
-        this.userData = data;
-        console.log(this.userData);
-        this.getCommandsByUserId();
-      }
-    ),
-      (err: Error) => {
-        this.errormessage = err.message;
-        console.log("error");
-      }
-  }
+  //   this.userService.getAdminBoard(user.id).subscribe(
+  //     (data: any) => {
+  //       this.userData = data;
+  //       console.log(this.userData);
+  //       this.getCommandsByUserId();
+  //     }
+  //   ),
+  //     (err: Error) => {
+  //       this.errormessage = err.message;
+  //       console.log("error");
+  //     }
+  // }
 
   getCommandsByUserId() {
     this.userService.getAllCommands().subscribe(
